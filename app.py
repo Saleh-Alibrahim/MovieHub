@@ -17,21 +17,29 @@ setup_db(app)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
-#   @desc      Render The main page
+@app.route('/', methods=["GET"])
+#   @desc      Get all the movies and render The main page
 #   @route     GET /
 #   @access    Public
-@app.route('/', methods=["GET"])
 def index():
-    return render_template('pages/index.html')
-
-
-#   @desc      Return all the movies
-#   @route     GET /movies
-#   @access    Public
-@app.route('/movies', methods=["GET"])
-def getMovies():
     movies = Movies.query.all()
     return render_template('pages/index.html')
+
+
+@app.route('/about', methods=["GET"])
+# @desc Render The about page
+#   @route     GET /about
+#   @access    Public
+def about():
+    return render_template('pages/about.html')
+
+
+@app.route('/contact', methods=["GET"])
+# @desc Render The about page
+#   @route     GET /contact
+#   @access    Public
+def contact():
+    return render_template('pages/contact.html')
 
 
 # Create the server
