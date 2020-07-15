@@ -436,8 +436,9 @@ figcaption {
 
 .section-title {
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 200px;
   font-size: 50px;
+  color: #f1b722;
   line-height: 54px;
   font-weight: 900;
 }
@@ -1093,9 +1094,9 @@ figcaption {
 }
 
 .logo {
-  width: auto;
-  height: 30px;
-  margin-top: 26px;
+  color: #f1b722;
+  font-weight: bold;
+  margin-top: 23px;
 }
 
 .logo.small {
