@@ -27,7 +27,7 @@ def index():
 
 
 @app.route('/about', methods=["GET"])
-# @desc Render The about page
+#   @desc Render The about page
 #   @route     GET /about
 #   @access    Public
 def about():
@@ -35,11 +35,19 @@ def about():
 
 
 @app.route('/contact', methods=["GET"])
-# @desc Render The about page
+#   @desc Render The about page
 #   @route     GET /contact
 #   @access    Public
 def contact():
     return render_template('pages/contact.html')
+
+
+@app.route('/getMovie/<movie_id>', methods=["GET"])
+#   @desc Render the movie page
+#   @route     GET /getMovie/<movie_id>
+#   @access    Public
+def getMovie(movie_id):
+    return render_template('pages/movie.html')
 
 
 # Create the server
