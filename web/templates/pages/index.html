@@ -35,53 +35,6 @@
             </div>
         </div>
     </div>
-
-    {% for m in movies %}
-    <!-- Medium cover layout -->
-    <div data-w-tab="Thumbnails" class="w-tab-pane">
-        <div class="item-list-wrapper w-dyn-list">
-            <div role="list" class="item-list mobile-narrow w-dyn-items w-row">
-                <div role="listitem" id="{{m.id}}" class="column-item w-dyn-item w-col w-col-4">
-                    <div class="new-item-block mobile-poster-only">
-                        <a href="/movie/{{m.id}}" style="background-image:url(img/cover/cover_{{m.id}}.jpg)"
-                            class="small-item-image-block mobile-centered w-inline-block">
-                            <div class="item-number small">{{m.rate}}</div>
-                        </a><a href="/movie/{{m.id}}" class="item-block-title in-nav hide-mobile">{{m.title}}</a>
-                        <div class="info-wrapper very-small">
-                            <div class="info-block hide-mobile"><img src="/img/icons/genre.svg" width="16" alt=""
-                                    class="info-block-icon small">{{m.genre}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-    <!-- Small cover layout -->
-    <div data-w-tab="List" class="w-tab-pane">
-        <div class="item-list-wrapper list-version w-dyn-list">
-            <div role="list" class="item-list mobile-full-list w-dyn-items">
-                <div role="listitem" class="list-item w-dyn-item">
-                    <a href="/movie/{{m.id}}" class="list-item-link-block w-inline-block">
-                        <div style="background-image:url(img/cover/cover_{{m.id}}.jpg)" class="small-item-image-block">
-                            <div class="item-number small">{{m.rate}}</div>
-                        </div>
-                        <div class="item-block-title mobile-small">{{m.title}}</div>
-                        <div class="info-block"><img src="/img/icons/genre.svg" width="16" alt=""
-                                class="info-block-icon small">
-                            <div class="info-title-link">{{m.genre}}</div>
-                        </div>
-                        <div class="button view-more">View More</div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-
-
 </div>
 </div>
 
