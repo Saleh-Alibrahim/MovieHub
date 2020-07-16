@@ -26,7 +26,7 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 #   @access    Public
 def index():
     movies = Movies.query.all()
-    return render_template('pages/test.html')
+    return render_template('pages/index.html')
 
 
 @app.route('/about', methods=["GET"])

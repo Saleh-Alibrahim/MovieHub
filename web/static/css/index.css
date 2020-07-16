@@ -1500,10 +1500,10 @@ figcaption {
 .review-circle {
   position: absolute;
   left: -35px;
-  top: -43px;
-  width: 100px;
-  height: 100px;
-  padding-top: 35px;
+  top: -30px;
+  width: 80px;
+  height: 80px;
+  padding-top: 27px;
   border-radius: 100%;
   background-color: #f1b722;
   font-size: 35px;
