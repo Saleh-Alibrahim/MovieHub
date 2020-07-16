@@ -1,17 +1,27 @@
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import os
-from flask import Flask, render_template, request, Response, flash
+import sys
+from flask import Flask, render_template, request, Response, flash, session
 from database.models import setup_db, Movies, Directors, drop_and_create_all
+from auth.auth import AuthError, requires_auth, get_token_auth_header
+from dotenv import load_dotenv
+
+# load the env variables
+load_dotenv()
+
 
 # Create flask app
 app = Flask(__name__, static_url_path='',
             static_folder='web/static',
             template_folder='web/templates')
 
+app.secret_key = os.environ.get('SECRET_KEY')
+
 
 # Connect to the database
 setup_db(app)
+
 
 # droop all and create all
 # drop_and_create_all()
@@ -31,26 +41,50 @@ def index():
 
 
 @app.route('/about', methods=["GET"])
-#   @desc Render The about page
+#   @desc      Render The about page
 #   @route     GET /about
 #   @access    Public
 def about():
     return render_template('pages/about.html')
 
 
-# @app.route('/contact', methods=["GET"])
-# #   @desc Render The about page
-# #   @route     GET /contact
-# #   @access    Public
-# def contact():
-#     return render_template('pages/contact.html')
-
-
-@app.route('/movie/<movie_id>', methods=["GET"])
-#   @desc Render the movie page
-#   @route     GET /getMovie/<movie_id>
+@app.route('/movie/<int:movie_id>', methods=["GET"])
+#   @desc      Render the movie page
+#   @route     GET /movie/<int:movie_id>
 #   @access    Public
 def getMovie(movie_id):
+    movie = Movies.query.join(Directors).filter(
+        Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
+    return render_template('pages/movie.html', movie=movie)
+
+
+@app.route('/movie', methods=['POST'])
+@requires_auth('post:movies')
+#   @desc      Add new movie
+#   @route     POST /movie
+#   @access    Private
+def addMovie():
+    movie = Movies.query.join(Directors).filter(
+        Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
+    return render_template('pages/movie.html', movie=movie)
+
+
+@app.route('/movie/<int:movie_id>', methods=['PATCH'])
+@requires_auth('patch:movies')
+#   @desc      Update movie with given id
+#   @route     PATCH /movie/<int:movie_id>
+#   @access    Private
+def updateMovie(movie_id):
+    movie = Movies.query.join(Directors).filter(
+        Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
+    return render_template('pages/movie.html', movie=movie)
+
+
+@app.route('/movie/<int:movie_id>', methods=['DELETE'])
+#   @desc      Delete movie with given id
+#   @route     Delete /movie/<int:movie_id>
+#   @access    Private
+def deleteMovie(movie_id):
     movie = Movies.query.join(Directors).filter(
         Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
     return render_template('pages/movie.html', movie=movie)
