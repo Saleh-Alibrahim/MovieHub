@@ -435,15 +435,16 @@ figcaption {
 }
 
 .section-title {
-  margin-bottom: 100px;
-  font-size: 40px;
+  font-size: 25px;
+  text-decoration: none; 
+  font-weight: bold;
   color: #f1b722;
-  font-weight: 900;
+  
 }
 
-section-title h1 {
-  margin-top: 200px;
-
+.section-title:hover {
+  cursor: pointer;
+  color: #a97f14;
 }
 
 .section-title.small {
@@ -703,8 +704,8 @@ section-title h1 {
 }
 
 .section-title-wrapper {
-  margin-bottom: 70px;
-  text-align: center;
+  margin: 50px 0;
+  text-align: left;
 }
 
 .section-title-wrapper.centered {
@@ -3430,4 +3431,4 @@ section-title h1 {
   src: url('https://assets.website-files.com/59f5ab35fccfea0001f70443/5a097e6a5f389a000168ea9c_fontawesome-webfont.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-}
+}}
