@@ -14,7 +14,7 @@ app = Flask(__name__, static_url_path='',
 setup_db(app)
 
 # droop all and create all
-drop_and_create_all()
+# drop_and_create_all()
 
 # Setup CORS
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -25,8 +25,9 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 #   @route     GET /
 #   @access    Public
 def index():
+    # Select all movies
     movies = Movies.query.all()
-    return render_template('pages/index.html')
+    return render_template('pages/index.html', movies=movies)
 
 
 @app.route('/about', methods=["GET"])
@@ -50,7 +51,12 @@ def contact():
 #   @route     GET /getMovie/<movie_id>
 #   @access    Public
 def getMovie(movie_id):
-    return render_template('pages/movie.html')
+    movie = Movies.query.join(Directors).filter(
+        Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
+
+    print(movie.directors.name)
+
+    return render_template('pages/movie.html', movie=movie)
 
 
 # Create the server

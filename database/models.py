@@ -1,5 +1,5 @@
 import os
-from sqlalchemy import Column, String, Integer, create_engine, DateTime, CheckConstraint
+from sqlalchemy import Column, String, Integer, Float, create_engine, DateTime, CheckConstraint
 from flask_sqlalchemy import SQLAlchemy
 import json
 
@@ -67,9 +67,10 @@ class Movies(db.Model):
 
     id = Column(Integer, primary_key=True)
     title = Column(String)
-    rate = Column(Integer)
+    rate = Column(Float)
     duration = Column(String)
     genre = Column(String)
+    trailer = Column(String)
     director_id = db.Column(db.Integer, db.ForeignKey(
         'directors.id'))
     description = Column(String)

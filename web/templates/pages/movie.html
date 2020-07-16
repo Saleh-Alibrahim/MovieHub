@@ -2,40 +2,37 @@
 
 
 {% block head %}
-<title>Ace Master X</title>
+<title>{{movie.title}}</title>
 <link href="/css/index.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block body %}
-<div style="background-image:url(/img/background/background_1.jpg)" class="dynamic-page-header">
+<div style="background-image:url(/img/background/background_{{movie.id}}.jpg)" class="dynamic-page-header">
     <div data-w-id="fb504413-d5b4-3ca2-7c6c-2e8872f7d460" class="dynamic-header-overlay">
         <div class="container w-container">
             <div class="header-content-block">
-                <div style="background-image:url(/img/cover/cover_1.jpg);" class="header-thumbnail-image">
+                <div style="background-image:url(/img/cover/cover_{{movie.id}}.jpg);" class="header-thumbnail-image">
                     <div class="review-circle">
-                        <div class="review-circle-title">9,8</div>
+                        <div class="review-circle-title">{{movie.rate}}</div>
                     </div>
                 </div>
-                <h1 class="header-title">Ace Master X</h1>
+                <h1 class="header-title">{{movie.title}}</h1>
                 <div class="info-wrapper on-review-page">
-                    <div class="info-block"><img src="/img/icons/genre.svg" alt="" class="info-block-icon">Comedy
-                        Horror</div>
+                    <div class="info-block"><img src="/img/icons/genre.svg" alt=""
+                            class="info-block-icon">{{movie.genre}}</div>
                     <div class="info-block"><img src="/img/icons/duration.svg" alt="" class="info-block-icon">
-                        <div class="info-title">July 16, 2019</div>
+                        <div class="info-title">{{movie.release_date}}</div>
                     </div>
                 </div>
-                <p class="header-short-description">The film takes place in the near future, with Earth in the grip
-                    of The Blight, an airborne disease that causes food crops to turn to grey-brown powder. It rolls
-                    and billows across the land, piling up around houses and cars like the dust-drifts in Andrei
-                    Tarkovsky’s Stalker, another film in which the characters slip between time’s cogs.</p>
+                <p class="header-short-description">{{movie.description}}</p>
                 <div class="header-info-block">
                     <div class="header-info-item">
                         <div class="header-info-title bold">Duration:</div>
-                        <div class="header-info-title">1h 49m</div>
+                        <div class="header-info-title">{{movie.duration}}</div>
                     </div>
                     <div class="header-info-item">
                         <div class="header-info-title bold">Director:</div>
-                        <div class="header-info-title">Anthony Black</div>
+                        <div class="header-info-title">{{movie.directors.name}}</div>
                     </div>
                 </div>
             </div>
@@ -46,28 +43,21 @@
     <div class="container w-container">
         <div id="review" class="review-wrapper">
             <div class="rtb w-richtext">
-
-                <p>He’s the preeminent blockbuster auteur of our time, a fiercely rational puzzle-maker and
-                    problem-solver; the Mies van der Rohe of Hollywood. He prefers shooting on film to digital
-                    cameras, and strives to achieve special effects on set rather than at a computer-graphics
-                    workstation. The rotating hotel corridor scene in Inception – a fist-fight in which the
-                    combatants spin and click together like the workings of a combination lock – is Nolan’s vision
-                    of cinema in miniature. Depending on which critic you talk to, he’s either a throwback, a
-                    fusspot and an ideologue, or the spiritual offspring of Steven Spielberg and Stanley Kubrick.
-                    (Of course, there’s no reason he can’t be all of the above.) </p>
-                <h3>A unique intro to the movie</h3>
-                <p>Like Kubrick, he has a reputation for chilliness, and none of his films are ever likely to be
-                    mistaken for romantic comedy. Memento, his 2000 breakthrough hit, is about the vagaries of truth
-                    and memory, while his recent Batman trilogy, which culminated two years ago in The Dark Knight
-                    Rises, deals with order and chaos, and society’s schizophrenic craving for both. No other
-                    filmmaker working today is as determined to use blockbuster spectacle to say something big about
-                    our world – even as he sends his characters zooming away from it, through wormholes, at
-                    light-speed.</p>
-
-
+                <p>{{movie.intro}}</p>
+            </div>
+            <div class="trailer-video-block">
+                <div class="trailer-title">Official trailer of this movie:</div>
+                <div style="padding-top:56%" class="review-video w-video w-embed">
+                    <iframe width="560" height="315" src="{{movie.trailer}}" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
             </div>
         </div>
     </div>
+
+</div>
+
 </div>
 
 {% block scripts %}

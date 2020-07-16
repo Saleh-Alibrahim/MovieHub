@@ -11,20 +11,20 @@
 <body>
     {% include "layouts/index-head.html" %}
     <div class="tabs-content w-tab-content">
-
+        {% for m in movies %}
         <!-- Big cover layout -->
         <div data-w-tab="Grid" class="tab-pane w-tab-pane w--tab-active">
             <div class="item-list-wrapper w-dyn-list">
                 <div role="list" class="item-list w-dyn-items w-row">
-                    <div role="listitem" id="movie_1" class="item mobile-half w-dyn-item w-col w-col-3">
+                    <div role="listitem" id="{{m.id}}" class="item mobile-half w-dyn-item w-col w-col-3">
                         <div class="item-block in-list">
-                            <a href="/movie/movie_1" style="background-image:url(img/cover/cover_1.jpg)"
+                            <a href="/movie/{{m.id}}" style="background-image:url(img/cover/cover_{{m.id}}.jpg)"
                                 class="item-image-block poster-format mobile-larger w-inline-block">
-                                <div class="item-number">9,8</div>
-                            </a><a href="/movie/movie_1" class="item-block-title">Ace Master X</a>
+                                <div class="item-number">{{m.rate}}</div>
+                            </a><a href="/movie/{{m.id}}" class="item-block-title">{{m.title}}</a>
                             <div class="info-wrapper small">
                                 <div class="info-block"><img src="/img/icons/genre.svg" alt=""
-                                        class="info-block-icon small">Comedy Horror</div>
+                                        class="info-block-icon small">{{m.genre}}</div>
                             </div>
                         </div>
                     </div>
@@ -36,15 +36,15 @@
         <div data-w-tab="Thumbnails" class="w-tab-pane">
             <div class="item-list-wrapper w-dyn-list">
                 <div role="list" class="item-list mobile-narrow w-dyn-items w-row">
-                    <div role="listitem" id="movie_1" class="column-item w-dyn-item w-col w-col-4">
+                    <div role="listitem" id="{{m.id}}" class="column-item w-dyn-item w-col w-col-4">
                         <div class="new-item-block mobile-poster-only">
-                            <a href="/movie/movie_1" style="background-image:url(img/cover/cover_1.jpg)"
+                            <a href="/movie/{{m.id}}" style="background-image:url(img/cover/cover_{{m.id}}.jpg)"
                                 class="small-item-image-block mobile-centered w-inline-block">
-                                <div class="item-number small">9,8</div>
-                            </a><a href="/movie/movie_1" class="item-block-title in-nav hide-mobile">Ace Master X</a>
+                                <div class="item-number small">{{m.rate}}</div>
+                            </a><a href="/movie/{{m.id}}" class="item-block-title in-nav hide-mobile">{{m.title}}</a>
                             <div class="info-wrapper very-small">
                                 <div class="info-block hide-mobile"><img src="/img/icons/genre.svg" width="16" alt=""
-                                        class="info-block-icon small">Comedy Horror</div>
+                                        class="info-block-icon small">{{m.genre}}</div>
                             </div>
                         </div>
                     </div>
@@ -57,20 +57,22 @@
             <div class="item-list-wrapper list-version w-dyn-list">
                 <div role="list" class="item-list mobile-full-list w-dyn-items">
                     <div role="listitem" class="list-item w-dyn-item">
-                        <a href="/movie/movie_1" class="list-item-link-block w-inline-block">
-                            <div style="background-image:url(img/cover/cover_1.jpg)" class="small-item-image-block">
-                                <div class="item-number small">9,8</div>
+                        <a href="/movie/{{m.id}}" class="list-item-link-block w-inline-block">
+                            <div style="background-image:url(img/cover/cover_{{m.id}}.jpg)"
+                                class="small-item-image-block">
+                                <div class="item-number small">{{m.rate}}</div>
                             </div>
-                            <div class="item-block-title mobile-small">Ace Master X</div>
+                            <div class="item-block-title mobile-small">{{m.title}}</div>
                             <div class="info-block"><img src="/img/icons/genre.svg" width="16" alt=""
                                     class="info-block-icon small">
-                                <div class="info-title-link">Comedy Horror</div>
+                                <div class="info-title-link">{{m.genre}}</div>
                             </div>
                             <div class="button view-more">View More</div>
                         </a></div>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
     </div>
 
