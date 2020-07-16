@@ -2,7 +2,7 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask import Flask, render_template, request, Response, flash
-from database.models import setup_db, Movies, Actors
+from database.models import setup_db, Movies, Directors, drop_and_create_all
 
 # Create flask app
 app = Flask(__name__, static_url_path='',
@@ -12,6 +12,9 @@ app = Flask(__name__, static_url_path='',
 
 # Connect to the database
 setup_db(app)
+
+# droop all and create all
+drop_and_create_all()
 
 # Setup CORS
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -42,7 +45,7 @@ def contact():
     return render_template('pages/contact.html')
 
 
-@app.route('/getMovie/<movie_id>', methods=["GET"])
+@app.route('/movie/<movie_id>', methods=["GET"])
 #   @desc Render the movie page
 #   @route     GET /getMovie/<movie_id>
 #   @access    Public

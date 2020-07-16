@@ -596,10 +596,15 @@ figcaption {
   width: 340px;
   height: 510px;
   border-radius: 10px;
-  background-image: url("https://d3e54v103j8qbb.cloudfront.net/img/example-bg.png");
   background-position: 50% 100%;
   background-size: cover;
   box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, 0.2), 8px 8px 60px -10px rgba(0, 0, 0, 0.4);
+  -webkit-transform:translate3d(-20PX,
+                        0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0,
+                        0);-moz-transform:translate3d(-20PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0)
+                        skew(0, 0);-ms-transform:translate3d(-20PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
+                        rotateZ(0) skew(0, 0);transform:translate3d(-20PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0)
+                        rotateZ(0) skew(0, 0);opacity:0
 }
 
 .header-title {
@@ -1494,6 +1499,7 @@ figcaption {
   margin-top: 35px;
   padding-top: 45px;
   border-top: 1px solid #232e36;
+  -webkit-transform:translate3d(0, 0, 0) scale3d(0.5, 0.5, 1) rotateX(0) rotateY(0) rotateZ(60DEG) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(0.5, 0.5, 1) rotateX(0) rotateY(0) rotateZ(60DEG) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(0.5, 0.5, 1) rotateX(0) rotateY(0) rotateZ(60DEG) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(0.5, 0.5, 1) rotateX(0) rotateY(0) rotateZ(60DEG) skew(0, 0);opacity:0
 }
 
 .review-circle {
