@@ -2842,6 +2842,14 @@ section-title h1 {
     margin-right: auto;
     margin-left: auto;
   }
+
+  #addMovie{
+   color: #f1b722;
+  }
+
+
+
+
   .review-wrapper {
     width: 100%;
     margin-top: 0px;

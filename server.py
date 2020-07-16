@@ -4,7 +4,7 @@ import os
 import sys
 from flask import Flask, render_template, request, Response, flash, session
 from database.models import setup_db, Movies, Directors, drop_and_create_all
-from auth.auth import AuthError, requires_auth, get_token_auth_header
+from auth.auth import AuthError, requires_auth, get_token_auth_header, verify_decode_jwt
 from dotenv import load_dotenv
 
 # load the env variables
@@ -49,6 +49,7 @@ def about():
 
 
 @app.route('/movie/<int:movie_id>', methods=["GET"])
+@requires_auth('')
 #   @desc      Render the movie page
 #   @route     GET /movie/<int:movie_id>
 #   @access    Public
@@ -88,6 +89,24 @@ def deleteMovie(movie_id):
     movie = Movies.query.join(Directors).filter(
         Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
     return render_template('pages/movie.html', movie=movie)
+
+
+@app.route('/login-results', methods=['GET'])
+#   @desc      Call back after retruning from auth0
+#   @route     GET /login-results
+#   @access    Private
+def loginResult():
+    # # Get the jwt from the header
+    # token = request.args.get('access_token')
+
+    # print(token)
+    # # verify the jwt
+    # payload = verify_decode_jwt(token)
+
+    # session['jwt'] = token
+
+    movies = Movies.query.all()
+    return render_template('pages/index.html', movies=movies)
 
 
 # Create the server
