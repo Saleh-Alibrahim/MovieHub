@@ -14,7 +14,7 @@ app = Flask(__name__, static_url_path='',
 setup_db(app)
 
 # droop all and create all
-drop_and_create_all()
+# drop_and_create_all()
 
 # Setup CORS
 CORS(app, resources={r"/api/*": {"origins": "*"}})

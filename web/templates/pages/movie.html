@@ -7,11 +7,12 @@
 {% endblock %}
 
 {% block body %}
-<div style="background-image:url(/img/background/background_{{movie.id}}.jpg)" class="dynamic-page-header">
+<div style="background-image:url(/img/background/background_{{movie.id}}.jpg);" class="dynamic-page-header">
     <div data-w-id="fb504413-d5b4-3ca2-7c6c-2e8872f7d460" class="dynamic-header-overlay">
         <div class="container w-container">
             <div class="header-content-block">
-                <div style="background-image:url(/img/cover/cover_{{movie.id}}.jpg);" class="header-thumbnail-image">
+                <div style="background-image:url(/img/cover/cover_{{movie.id}}.jpg); background-size: cover;"
+                    class="header-thumbnail-image">
                     <div class="review-circle">
                         <div class="review-circle-title">{{movie.rate}}</div>
                     </div>
