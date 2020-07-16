@@ -13,7 +13,6 @@
 <div class="section">
     <div class="container w-container">
         <div class="section-title-wrapper">
-            <a style="visibility: hidden;" id="addMovie" data-ix="fade-in-on-load" class="section-title">Add Movie</a>
         </div>
         <div data-duration-in="300" data-duration-out="100" class="tabs w-tabs">
             <div data-w-tab="Grid" class="tab-pane w-tab-pane w--tab-active">
@@ -35,6 +34,13 @@
                             </div>
                         </div>
                         {% endfor %}
+                    </div>
+                    <div class="search-wrapper">
+                        <div class="search-title">Looking for something else? Add the movie to the list</div>
+                        <form action="/search" class="search-form w-clearfix w-form"><input type="search"
+                                class="search-field w-input" maxlength="256" name="query"
+                                placeholder="Write Movie name to add it" id="search" required=""><input type="submit"
+                                value="." class="search-button w-button"></form>
                     </div>
                 </div>
             </div>

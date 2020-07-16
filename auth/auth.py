@@ -28,14 +28,21 @@ class AuthError(Exception):
 def get_token_auth_header():
 
     # Obtains the Access Token from the Authorization Header
-    auth = request.headers.get('Authorization', None)
+    header = request.headers.get('Authorization', None)
+    print('header', header)
+
+    cookie = request.cookies.get('aws', None)
+
+    print('cookie', cookie)
 
     # Check if the auth header is available
-    if not auth:
+    if not header and not cookie:
         raise AuthError({
-            'code': 'authorization_header_missing',
-            'description': 'Authorization header is expected.'
+            'code': 'authorization_header_or_cookie_missing',
+            'description': 'Authorization header or cookie is expected.'
         }, 401)
+
+    auth = header | cookie
 
     # Check if it bearer or not
     parts = auth.split()

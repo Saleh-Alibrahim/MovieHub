@@ -16,8 +16,6 @@ app = Flask(__name__, static_url_path='',
             static_folder='web/static',
             template_folder='web/templates')
 
-app.secret_key = os.environ.get('SECRET_KEY')
-
 
 # Connect to the database
 setup_db(app)
@@ -37,7 +35,6 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 def index():
     # Select all movies
     movies = Movies.query.all()
-    print('wqewqd')
     return render_template('pages/index.html', movies=movies)
 
 
@@ -70,17 +67,6 @@ def addMoviePage():
     return render_template('pages/movie.html', movie=movie)
 
 
-@app.route('/add-movie', methods=['POST'])
-@requires_auth('post:movies')
-#   @desc      Add new movie
-#   @route     POST /movie
-#   @access    Private
-def addMovie():
-    movie = Movies.query.join(Directors).filter(
-        Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
-    return render_template('pages/movie.html', movie=movie)
-
-
 @app.route('/movie/<int:movie_id>', methods=['PATCH'])
 @requires_auth('patch:movies')
 #   @desc      Update movie with given id
@@ -100,24 +86,6 @@ def deleteMovie(movie_id):
     movie = Movies.query.join(Directors).filter(
         Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
     return render_template('pages/movie.html', movie=movie)
-
-
-@app.route('/login-results', methods=['GET'])
-#   @desc      Call back after retruning from auth0
-#   @route     GET /login-results
-#   @access    Private
-def loginResult():
-    # # Get the jwt from the header
-    # token = request.args.get('access_token')
-
-    # print(token)
-    # # verify the jwt
-    # payload = verify_decode_jwt(token)
-
-    # session['jwt'] = token
-
-    movies = Movies.query.all()
-    return render_template('pages/index.html', movies=movies)
 
 
 # Create the server
