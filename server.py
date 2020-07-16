@@ -37,6 +37,7 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 def index():
     # Select all movies
     movies = Movies.query.all()
+    print('wqewqd')
     return render_template('pages/index.html', movies=movies)
 
 
@@ -49,17 +50,27 @@ def about():
 
 
 @app.route('/movie/<int:movie_id>', methods=["GET"])
-@requires_auth('')
 #   @desc      Render the movie page
 #   @route     GET /movie/<int:movie_id>
 #   @access    Public
 def getMovie(movie_id):
     movie = Movies.query.join(Directors).filter(
         Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
+    return render_template('pages/show-movie.html', movie=movie)
+
+
+@app.route('/add-movie', methods=['GET'])
+@requires_auth('post:movies')
+#   @desc      Render the page to be able to add new movie
+#   @route     POST /movie
+#   @access    Private
+def addMoviePage():
+    movie = Movies.query.join(Directors).filter(
+        Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
     return render_template('pages/movie.html', movie=movie)
 
 
-@app.route('/movie', methods=['POST'])
+@app.route('/add-movie', methods=['POST'])
 @requires_auth('post:movies')
 #   @desc      Add new movie
 #   @route     POST /movie

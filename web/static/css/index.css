@@ -2845,8 +2845,12 @@ figcaption {
   }
 
   #addMovie{
-   color: #f1b722;
+  color: #f1b722;
   }
+
+  #logout{
+    cursor: pointer;
+    }
 
 
 
