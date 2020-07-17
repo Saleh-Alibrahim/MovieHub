@@ -2,128 +2,94 @@ import os
 import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
-
-
 from database.models import setup_db, Movies, drop_and_create_all
 from auth.auth import AuthError, requires_auth, get_token_auth_header, verify_decode_jwt
 from server import app
 
+from dotenv import load_dotenv
+
+# load the env variables
+load_dotenv()
+
+adminJWT = os.environ.get('ADMIN_JWT')
+
 database_path = os.environ.get('TEST_DATABASE_URL')
 
 
-class TriviaTestCase(unittest.TestCase):
+class MovieTestCase(unittest.TestCase):
     """This class represents the moviehub test case"""
 
     def setUp(self):
         self.app = app
         self.client = app.test_client
-        setup_db(
-            app, database_path, True)
+
+        setup_db(app, database_path, True)
+
+        self.new_movie = {
+            "id": "12dsa3",
+            "title": "test"
+        }
+
+        movie = Movies(id=self.new_movie['id'], title=self.new_movie['title'])
+        movie.insert()
 
     def tearDown(self):
         """Executed after reach test"""
         pass
 
-    def test_retrieve_questions(self):
-        res = self.client().get('/questions')
-        data = json.loads(res.data)
+    def test_retrieve_movies(self):
+        res = self.client().get('/')
         self.assertEqual(res.status_code, 200)
 
-    def test_retrieve_questions_fail(self):
-        res = self.client().get('/questions')
-        data = json.loads(res.data)
+    def test_retrieve_movies_fail(self):
+        res = self.client().get('/')
+        self.assertNotEqual(res.data, None)
+
+    def test_retrieve_about(self):
+        res = self.client().get('/about')
         self.assertEqual(res.status_code, 200)
 
-    def test_retrieve_categories(self):
+    def test_retrieve_about_fail(self):
+        res = self.client().get('/about')
+        self.assertNotEqual(res.data, None)
 
-        res = self.client().get('/categories')
-        data = json.loads(res.data)
+    def test_retrieve_movie(self):
+        res = self.client().get('/movie/12dsa3')
         self.assertEqual(res.status_code, 200)
 
-    def test_retrieve_categories_fail(self):
-        res = self.client().get('/categories')
-        data = json.loads(res.data)
+    def test_retrieve_movie_fail(self):
+        res = self.client().get('/movie/123456213')
+        self.assertEqual(res.status_code, 400)
+
+    def test_create_movie(self):
+        res = self.client().post(
+            '/movie', headers={"Authorization": adminJWT}, data={'query': 'godfather'})
+        self.assertEqual(res.status_code, 302)
+
+    def test_create_movie_fail(self):
+        res = self.client().post(
+            '/movie', headers={"Authorization": adminJWT}, data={'query': 'AWDAW'})
+        self.assertEqual(res.status_code, 400)
+
+    def test_delete_movie(self):
+        res = self.client().delete('/movie/{}'.format('12dsa3'),
+                                   headers={"Authorization": adminJWT})
         self.assertEqual(res.status_code, 200)
 
-    def test_create_question(self):
-        res = self.client().post('/questions', json=self.new_question)
-        data = json.loads(res.data)
+    def test_delete_movie_fail(self):
+        res = self.client().delete('/movie/{}'.format(1325),
+                                   headers={"Authorization": adminJWT})
+        self.assertEqual(res.status_code, 400)
+
+    def test_patch_movie(self):
+        res = self.client().patch('/movie/{}'.format('12dsa3'),
+                                  headers={"Authorization": adminJWT})
         self.assertEqual(res.status_code, 200)
 
-    def test_create_question_fail(self):
-        res = self.client().post('/questions')
-        data = json.loads(res.data)
-        self.assertEqual(res.status_code, 422)
-
-    def test_delete_question(self):
-        question = Question(question=self.new_question['question'], answer="self.new_question['answer']",
-                            category=self.new_question['category'], difficulty=self.new_question['difficulty'])
-        question.insert()
-        id = question.id
-        res = self.client().delete('/questions/{}'.format(id))
-        data = json.loads(res.data)
-        self.assertEqual(res.status_code, 200)
-
-    def test_404_delete_question(self):
-        res = self.client().delete('/questions/1000')
-        data = json.loads(res.data)
-        self.assertEqual(res.status_code, 404)
-        self.assertEqual(data['success'], False)
-        self.assertEqual(data['message'], 'resource not found')
-
-    def test_get_question_search(self):
-        question = Question(question=self.new_question['question'], answer="self.new_question['answer']",
-                            category=self.new_question['category'], difficulty=self.new_question['difficulty'])
-        question.insert()
-        res = self.client().post('/questions/many')
-        data = json.loads(res.data)
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        self.assertEqual(len(data['questions']), 1)
-
-    def test_get_question_search_fail(self):
-        res = self.client().post('/questions/nothing')
-        data = json.loads(res.data)
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        self.assertEqual(len(data['questions']), 0)
-
-    def test_get_question_category(self):
-
-        category = Category(type='sports')
-        category.insert()
-
-        question = Question(question=self.new_question['question'], answer="self.new_question['answer']",
-                            category=self.new_question['category'], difficulty=self.new_question['difficulty'])
-        question.insert()
-        res = self.client().get(f'/categories/0/questions')
-        data = json.loads(res.data)
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        self.assertEqual(len(data['questions']), 1)
-
-    def test_get_question_category_fail(self):
-        res = self.client().get(f'/categories/1000/questions')
-        data = json.loads(res.data)
-        self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['success'], True)
-        self.assertEqual(len(data['questions']), 0)
-
-    def test_play_quiz_game(self):
-        response = self.client().post('/quizzes',
-                                      json={'previous_questions': [], 'quiz_category': {
-                                            'type': 'click', 'id': '0'}})
-        data = json.loads(response.data)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(data['success'], True)
-
-    def test_play_quiz_game_fail(self):
-        response = self.client().post('/quizzes',
-                                      json={'previous_questions': [],
-                                            'quiz_category': {}})
-        data = json.loads(response.data)
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(data['success'], False)
+    def test_patch_movie_fail(self):
+        res = self.client().patch('/movie/{}'.format(1325),
+                                  headers={"Authorization": adminJWT})
+        self.assertEqual(res.status_code, 400)
 
 
 # Make the tests conveniently executable

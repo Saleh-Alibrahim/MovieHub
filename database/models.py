@@ -2,6 +2,10 @@ import os
 from sqlalchemy import Column, String, Integer, Float, create_engine, DateTime, CheckConstraint
 from flask_sqlalchemy import SQLAlchemy
 import json
+from dotenv import load_dotenv
+
+# load the env variables
+load_dotenv()
 
 
 database_path = os.environ.get('DATABASE_URL')
@@ -36,19 +40,19 @@ class Movies(db.Model):
     __tablename__ = 'movies'
 
     id = Column(String, primary_key=True, autoincrement=False)
-    title = Column(String)
-    genre = Column(String)
-    director = Column(String)
-    poster = Column(String)
-    rate = Column(Float)
-    runtime = Column(String)
-    description = Column(String)
-    released = Column(String)
-    awards = Column(String)
-    language = Column(String)
-    actors = Column(String)
+    title = Column(String, default=' ')
+    genre = Column(String, default=' ')
+    director = Column(String, default=' ')
+    poster = Column(String, default=' ')
+    rate = Column(Float, default=0)
+    runtime = Column(String, default=' ')
+    description = Column(String, default=' ')
+    released = Column(String, default=' ')
+    awards = Column(String, default=' ')
+    language = Column(String, default=' ')
+    actors = Column(String, default=' ')
 
-    def __init__(self, id, title, genre, director, poster, rate, runtime, description, released, awards, language, actors):
+    def __init__(self, id, title=' ', genre=' ', director=' ', poster=' ', rate=0, runtime=' ', description=' ', released=' ', awards=' ', language=' ', actors=' '):
         self.id = id
         self.title = title
         self.genre = genre

@@ -49,8 +49,11 @@ movies_per_page = 10
 #   @route     GET /
 #   @access    Public
 def home():
-    # Select all movies
-    movies = Movies.query.all()
+    try:
+        # Select all movies
+        movies = Movies.query.all()
+    except:
+        abort(500, 'Server error')
     return render_template('pages/index.html', movies=movies)
 
 
@@ -107,16 +110,32 @@ def addMovie():
     return redirect(url_for('home'))
 
 
-@app.route('/movie/<int:movie_id>', methods=['PATCH'])
+@app.route('/movie/<string:movie_id>', methods=['PATCH'])
 @requires_auth('patch:movies')
 #   @desc      Update movie with given id
-#   @route     PATCH /movie/<int:movie_id>
+#   @route     PATCH /movie/<string:movie_id>
 #   @access    Private
 def updateMovie(movie_id):
     movie = Movies.query.filter(Movies.id == movie_id).first()
     if not movie:
         abort(400)
+
+    movie.title = request.form.get("title") or movie.title
+    movie.genre = request.form.get("genre") or movie.genre
+    movie.director = request.form.get("director") or movie.director
+    movie.poster = request.form.get("poster") or movie.poster
+    movie.rate = request.form.get("rate") or movie.rate
+    movie.runtime = request.form.get("runtime") or movie.runtime
+    movie.description = request.form.get("description") or movie.description
+    movie.released = request.form.get("released") or movie.released
+    movie.awards = request.form.get("awards") or movie.awards
+    movie.language = request.form.get("language") or movie.language
+    movie.actors = request.form.get("actors") or movie.actors
     movie.update()
+
+    return jsonify({
+        "success": True,
+    })
 
 
 @app.route('/movie/<string:movie_id>', methods=['DELETE'])
