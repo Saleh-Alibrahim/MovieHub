@@ -17,7 +17,6 @@ function deleteButton(id) {
         type: 'DELETE',
         contentType: 'application/json',
         success: function (result) {
-            alert(result)
             location.href = location.href;
         }
     });

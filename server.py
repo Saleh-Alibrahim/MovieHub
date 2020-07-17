@@ -137,30 +137,27 @@ def deleteMovie(movie_id):
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('errors/404.html'), 404
+    return render_template('errors/error.html', error=error), 404
 
 
 @app.errorhandler(422)
 def unprocessable(error):
-    return jsonify({
-        "success": False,
-        "error": 422,
-        "message": "unprocessable"
-    }), 422
+    return render_template('errors/error.html', error=error), 422
 
 
 @app.errorhandler(400)
 def bad_request(error):
-    return jsonify({
-        "success": False,
-        "error": 400,
-        "message": "bad request"
-    }), 400
+    return render_template('errors/error.html', error=error), 400
+
+
+@app.errorhandler(401)
+def unauthorized(error):
+    return render_template('errors/error.html', error=error), 401
 
 
 @app.errorhandler(500)
 def server_error(error):
-    return render_template('errors/500.html'), 500
+    return render_template('errors/error.html', error=error), 500
 
 
 # Create the server
