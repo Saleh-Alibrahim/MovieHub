@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 import sys
 import requests
-from flask import Flask, render_template, request, Response, flash, session, redirect, url_for, jsonify
+from flask import Flask, render_template, request, Response, flash, session, redirect, url_for, jsonify, abort
 from database.models import setup_db, Movies, drop_and_create_all
 from auth.auth import AuthError, requires_auth, get_token_auth_header, verify_decode_jwt
 from dotenv import load_dotenv
@@ -44,17 +44,6 @@ def after_request(response):
 movies_per_page = 10
 
 
-def paginate_movies(request, selection):
-    page = request.args.get('page', 1, type=int)
-    start = (page - 1) * movies_per_page
-    end = start + movies_per_page
-
-    movies = [question.format() for question in selection]
-    current_movies = movies[start:end]
-
-    return current_movies
-
-
 @app.route('/', methods=["GET"])
 #   @desc      Get all the movies and render The main page
 #   @route     GET /
@@ -79,6 +68,8 @@ def about():
 #   @access    Public
 def getMovie(movie_id):
     movie = Movies.query.filter(Movies.id == movie_id).first()
+    if not movie:
+        abort(400, 'There is not movie with given id')
     return render_template('pages/show-movie.html', movie=movie)
 
 
@@ -98,13 +89,20 @@ def addMovie():
     data = requests.get(
         f'http://www.omdbapi.com/?apikey={apiKey}&t={movie}&plot=full')
 
-    # Convert the result to json
-    d = data.json()
+    if not movie:
+        abort(400, 'There is not movie with given name')
 
-    # Insert to database
-    movie = Movies(id=d['imdbID'], title=d['Title'], genre=d['Genre'], director=d['Director'], poster=d['Poster'],
-                   rate=d['imdbRating'], runtime=d['Runtime'], description=d['Plot'], released=d['Released'], awards=d['Awards'], language=d['Language'], actors=d['Actors'])
-    movie.insert()
+    try:
+        # Convert the result to json
+        d = data.json()
+
+        # Insert to database
+        movie = Movies(id=d['imdbID'], title=d['Title'], genre=d['Genre'], director=d['Director'], poster=d['Poster'],
+                       rate=d['imdbRating'], runtime=d['Runtime'], description=d['Plot'], released=d['Released'], awards=d['Awards'], language=d['Language'], actors=d['Actors'])
+        movie.insert()
+
+    except:
+        abort(400, 'This movie exist in the list')
 
     return redirect(url_for('home'))
 
@@ -116,6 +114,8 @@ def addMovie():
 #   @access    Private
 def updateMovie(movie_id):
     movie = Movies.query.filter(Movies.id == movie_id).first()
+    if not movie:
+        abort(400)
     movie.update()
 
 
@@ -126,7 +126,11 @@ def updateMovie(movie_id):
 #   @access    Private
 def deleteMovie(movie_id):
 
+    # Get the movie by id
     movie = Movies.query.filter(Movies.id == movie_id).first()
+
+    if not movie:
+        abort(400, 'There is not movie with the given id')
 
     movie.delete()
 
