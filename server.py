@@ -62,12 +62,11 @@ def getMovie(movie_id):
 #   @route     GET /add-movie
 #   @access    Private
 def addMovie():
-
     # Get the api key
     apiKey = os.environ.get('API_KEY')
 
     # Get the movie name
-    movie = request.args.get("query")
+    movie = request.form.get("query")
 
     # Request the omdbapi api
     data = requests.get(
@@ -93,7 +92,7 @@ def updateMovie(movie_id):
     return render_template('pages/movie.html', movie=movie)
 
 
-@app.route('/movie/delete/<string:movie_id>', methods=['GET'])
+@app.route('/movie/<string:movie_id>', methods=['DELETE'])
 @requires_auth('delete:movies')
 #   @desc      Delete movie with given id
 #   @route     Delete /movie/<int:movie_id>
@@ -103,7 +102,10 @@ def deleteMovie(movie_id):
     movie = Movies.query.filter(Movies.id == movie_id).first()
 
     movie.delete()
-    return redirect(url_for('home'))
+
+    return jsonify({
+        "success": True,
+    })
 
 
 @app.errorhandler(404)

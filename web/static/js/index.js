@@ -16,10 +16,12 @@ function deleteButton(id) {
         url: `http://127.0.0.1:5000/movie/${id}`,
         type: 'DELETE',
         contentType: 'application/json',
-        headers: {
-            "Authorization": jwt
-        },
-        async: true
+        success: function (result) {
+            alert(result)
+            location.href = location.href;
+        }
     });
 }
+
+
 
