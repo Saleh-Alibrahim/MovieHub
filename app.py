@@ -92,7 +92,7 @@ def addMovie():
     data = requests.get(
         f'http://www.omdbapi.com/?apikey={apiKey}&t={movie}&plot=full')
 
-    if not movie:
+    if not data:
         abort(400, 'There is not movie with given name')
 
     try:
@@ -104,7 +104,7 @@ def addMovie():
                        rate=d['imdbRating'], runtime=d['Runtime'], description=d['Plot'], released=d['Released'], awards=d['Awards'], language=d['Language'], actors=d['Actors'])
         movie.insert()
 
-    except:
+    except Exception as e:
         abort(400, 'This movie exist in the list')
 
     return redirect(url_for('home'))
