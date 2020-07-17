@@ -1,8 +1,8 @@
 let cookie;
 
 if (location.hash) {
-    jwtValue = location.hash.substr(1).split('&')[0].substring(13);
-    createCookie("jwt", jwtValue, 30);
+    let jwtValue = location.hash.substr(1).split('&')[0].substring(13);
+    createCookie("jwt", 'Bearer ' + jwtValue, 30);
 }
 const jwt = getCookie("jwt");
 
@@ -13,7 +13,8 @@ if (jwt) {
     $('#logout').css('display', 'inline-block');
 }
 function createCookie(name, value, expires) {
-    cookie = name + "=" + escape(value) + ";";
+    cookie = name + "=" + value + ";";
+
 
     if (expires) {
         // If it's a date
@@ -29,7 +30,6 @@ function createCookie(name, value, expires) {
     }
 
     cookie += "expires=" + expires.toGMTString() + ";";
-
     document.cookie = cookie;
 }
 function deleteCookie(name) {

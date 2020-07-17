@@ -2,10 +2,12 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 import os
 import sys
-from flask import Flask, render_template, request, Response, flash, session
+import requests
+from flask import Flask, render_template, request, Response, flash, session, redirect, url_for
 from database.models import setup_db, Movies, Directors, drop_and_create_all
 from auth.auth import AuthError, requires_auth, get_token_auth_header, verify_decode_jwt
 from dotenv import load_dotenv
+
 
 # load the env variables
 load_dotenv()
@@ -32,7 +34,7 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 #   @desc      Get all the movies and render The main page
 #   @route     GET /
 #   @access    Public
-def index():
+def home():
     # Select all movies
     movies = Movies.query.all()
     return render_template('pages/index.html', movies=movies)
@@ -57,14 +59,23 @@ def getMovie(movie_id):
 
 
 @app.route('/add-movie', methods=['GET'])
-@requires_auth('post:movies')
+@requires_auth()
 #   @desc      Render the page to be able to add new movie
-#   @route     POST /movie
+#   @route     GET /add-movie
 #   @access    Private
-def addMoviePage():
-    movie = Movies.query.join(Directors).filter(
-        Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
-    return render_template('pages/movie.html', movie=movie)
+def addMovie():
+
+    # Get the api key
+    apiKey = os.environ.get('API_KEY')
+
+    movie = request.args.get("query")
+
+    callApi = requests.get(
+        f'http://www.omdbapi.com/?apikey={apiKey}&t={movie}&plot=full')
+
+    data = callApi.json()
+
+    return redirect(url_for('home'))
 
 
 @app.route('/movie/<int:movie_id>', methods=['PATCH'])

@@ -29,11 +29,8 @@ def get_token_auth_header():
 
     # Obtains the Access Token from the Authorization Header
     header = request.headers.get('Authorization', None)
-    print('header', header)
 
-    cookie = request.cookies.get('aws', None)
-
-    print('cookie', cookie)
+    cookie = request.cookies.get('jwt', None)
 
     # Check if the auth header is available
     if not header and not cookie:
@@ -42,7 +39,7 @@ def get_token_auth_header():
             'description': 'Authorization header or cookie is expected.'
         }, 401)
 
-    auth = header | cookie
+    auth = header if cookie is None else cookie
 
     # Check if it bearer or not
     parts = auth.split()
@@ -142,17 +139,16 @@ def verify_decode_jwt(token):
 # soruce : https://github.com/udacity/FSND/blob/master/BasicFlaskAuth/app.py
 
 
-def requires_auth(permission=''):
+def requires_auth(permission=None):
     def requires_auth_decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
 
             token = get_token_auth_header()
-            print('token', token)
             payload = verify_decode_jwt(token)
-            print('payload', payload)
-            check_permissions(permission, payload)
-            return f(payload, *args, **kwargs)
+            if permission is not None:
+                check_permissions(permission, payload)
+            return f(*args, **kwargs)
 
         return wrapper
     return requires_auth_decorator

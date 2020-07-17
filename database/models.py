@@ -32,58 +32,31 @@ def drop_and_create_all():
     db.create_all()
 
 
-# Directors
-class Directors(db.Model):
-    __tablename__ = 'directors'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    movie = db.relationship('Movies', backref='directors')
-
-    def __init__(self, name):
-        self.name = name
-
-    def insert(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def update(self):
-        db.session.commit()
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-    def format(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-        }
-
-
 # Movies
 class Movies(db.Model):
     __tablename__ = 'movies'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=False)
     title = Column(String)
-    rate = Column(Float)
-    duration = Column(String)
     genre = Column(String)
-    trailer = Column(String)
-    director_id = db.Column(db.Integer, db.ForeignKey(
-        'directors.id'))
+    director = Column(String)
+    poster = Column(String)
+    rate = Column(Float)
+    runtime = Column(String)
     description = Column(String)
-    intro = Column(String)
-    release_date = Column(String)
+    released = Column(String)
 
-    def __init__(self, title, rate, duration, director_id, description, release_date):
+    def __init__(self, id, title, genre, duration, director, poster, rate, runtime, description, released):
+        self.id = id
         self.title = title
-        self.rate = rate
+        self.genre = genre
         self.duration = duration
-        self.director_id = director_id
+        self.director = director
+        self.poster = poster
+        self.rate = rate
+        self.runtime = runtime
         self.description = description
-        self.release_date = release_date
+        self.released = released
 
     def insert(self):
         db.session.add(self)
@@ -95,14 +68,3 @@ class Movies(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-
-    def format(self):
-        return {
-            'id': self.id,
-            'title': self.title,
-            'rate': self.rate,
-            'duration': self.duration,
-            'director_id': self.director_id,
-            'description': self.description,
-            'release_date': self.release_date
-        }
