@@ -29,6 +29,32 @@ setup_db(app)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
+@app.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    response.headers.add('Access-Control-Allow-Methods',
+                         'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add("Access-Control-Allow-Headers",
+                         "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
+
+    return response
+
+
+movies_per_page = 10
+
+
+def paginate_movies(request, selection):
+    page = request.args.get('page', 1, type=int)
+    start = (page - 1) * movies_per_page
+    end = start + movies_per_page
+
+    movies = [question.format() for question in selection]
+    current_movies = movies[start:end]
+
+    return current_movies
+
+
 @app.route('/', methods=["GET"])
 #   @desc      Get all the movies and render The main page
 #   @route     GET /
@@ -89,7 +115,8 @@ def addMovie():
 #   @route     PATCH /movie/<int:movie_id>
 #   @access    Private
 def updateMovie(movie_id):
-    return render_template('pages/movie.html', movie=movie)
+    movie = Movies.query.filter(Movies.id == movie_id).first()
+    movie.update()
 
 
 @app.route('/movie/<string:movie_id>', methods=['DELETE'])
@@ -110,11 +137,7 @@ def deleteMovie(movie_id):
 
 @app.errorhandler(404)
 def not_found(error):
-    return jsonify({
-        "success": False,
-        "error": 404,
-        "message": "resource not found"
-    }), 404
+    return render_template('errors/404.html'), 404
 
 
 @app.errorhandler(422)
@@ -137,11 +160,7 @@ def bad_request(error):
 
 @app.errorhandler(500)
 def server_error(error):
-    return jsonify({
-        "success": False,
-        "error": 500,
-        "message": "server error"
-    }), 500
+    return render_template('errors/500.html'), 500
 
 
 # Create the server
