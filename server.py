@@ -24,7 +24,6 @@ setup_db(app)
 
 
 # droop all and create all
-# drop_and_create_all()
 
 # Setup CORS
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -67,16 +66,19 @@ def addMovie():
     # Get the api key
     apiKey = os.environ.get('API_KEY')
 
+    # Get the movie name
     movie = request.args.get("query")
 
+    # Request the omdbapi api
     data = requests.get(
         f'http://www.omdbapi.com/?apikey={apiKey}&t={movie}&plot=full')
 
+    # Convert the result to json
     d = data.json()
 
+    # Insert to database
     movie = Movies(id=d['imdbID'], title=d['Title'], genre=d['Genre'], director=d['Director'], poster=d['Poster'],
-                   rate=d['imdbRating'], runtime=d['Runtime'], description=d['Plot'], released=d['Released'])
-
+                   rate=d['imdbRating'], runtime=d['Runtime'], description=d['Plot'], released=d['Released'], awards=d['Awards'], language=d['Language'], actors=d['Actors'])
     movie.insert()
 
     return redirect(url_for('home'))
