@@ -104,7 +104,7 @@ def addMovie():
                        rate=d['imdbRating'], runtime=d['Runtime'], description=d['Plot'], released=d['Released'], awards=d['Awards'], language=d['Language'], actors=d['Actors'])
         movie.insert()
 
-    except Exception as e:
+    except:
         abort(400, 'This movie exist in the list')
 
     return redirect(url_for('home'))
