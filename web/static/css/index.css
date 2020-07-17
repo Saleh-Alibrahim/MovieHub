@@ -2094,6 +2094,27 @@ figcaption {
   background-size: cover;
 }
 
+#toast{
+  position:fixed;
+  top:0;
+  left:50%;
+  transform:translate(-50%);
+  background-color:#333;
+  color:#fff;
+  padding:16px;
+  border-radius:4px;
+  text-align:center;
+  z-index:1;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+  /* visibility:hidden; */
+  opacity:0;
+}
+
+#toast.show{
+  visibility:visible;
+  animation:fadeInOut 3s;
+}
+
 .image-section {
   padding-top: 260px;
   padding-bottom: 260px;
@@ -3427,10 +3448,16 @@ figcaption {
     padding-top: 10px;
     border-right-width: 0px;
   }
+
+  
+  @keyframes fadeInOut{
+    5%,95%{opacity:1;top:50px}
+    15%,85%{opacity:1;top:30px}
+  }
 }
 @font-face {
   font-family: 'Fontawesome webfont';
   src: url('https://assets.website-files.com/59f5ab35fccfea0001f70443/5a097e6a5f389a000168ea9c_fontawesome-webfont.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-}}
+}
