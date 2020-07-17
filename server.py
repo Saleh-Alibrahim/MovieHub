@@ -4,7 +4,7 @@ import os
 import sys
 import requests
 from flask import Flask, render_template, request, Response, flash, session, redirect, url_for
-from database.models import setup_db, Movies, Directors, drop_and_create_all
+from database.models import setup_db, Movies, drop_and_create_all
 from auth.auth import AuthError, requires_auth, get_token_auth_header, verify_decode_jwt
 from dotenv import load_dotenv
 
@@ -48,13 +48,12 @@ def about():
     return render_template('pages/about.html')
 
 
-@app.route('/movie/<int:movie_id>', methods=["GET"])
+@app.route('/movie/<string:movie_id>', methods=["GET"])
 #   @desc      Render the movie page
-#   @route     GET /movie/<int:movie_id>
+#   @route     GET /movie/<string:movie_id>
 #   @access    Public
 def getMovie(movie_id):
-    movie = Movies.query.join(Directors).filter(
-        Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
+    movie = Movies.query.filter(Movies.id == movie_id).first()
     return render_template('pages/show-movie.html', movie=movie)
 
 
@@ -70,10 +69,15 @@ def addMovie():
 
     movie = request.args.get("query")
 
-    callApi = requests.get(
+    data = requests.get(
         f'http://www.omdbapi.com/?apikey={apiKey}&t={movie}&plot=full')
 
-    data = callApi.json()
+    d = data.json()
+
+    movie = Movies(id=d['imdbID'], title=d['Title'], genre=d['Genre'], director=d['Director'], poster=d['Poster'],
+                   rate=d['imdbRating'], runtime=d['Runtime'], description=d['Plot'], released=d['Released'])
+
+    movie.insert()
 
     return redirect(url_for('home'))
 
@@ -84,18 +88,14 @@ def addMovie():
 #   @route     PATCH /movie/<int:movie_id>
 #   @access    Private
 def updateMovie(movie_id):
-    movie = Movies.query.join(Directors).filter(
-        Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
     return render_template('pages/movie.html', movie=movie)
 
 
-@app.route('/movie/<int:movie_id>', methods=['DELETE'])
+@app.route('/movie/<string:movie_id>', methods=['DELETE'])
 #   @desc      Delete movie with given id
 #   @route     Delete /movie/<int:movie_id>
 #   @access    Private
 def deleteMovie(movie_id):
-    movie = Movies.query.join(Directors).filter(
-        Directors.id == Movies.director_id).filter(Movies.id == movie_id).first()
     return render_template('pages/movie.html', movie=movie)
 
 

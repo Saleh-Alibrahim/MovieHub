@@ -36,7 +36,7 @@ def drop_and_create_all():
 class Movies(db.Model):
     __tablename__ = 'movies'
 
-    id = Column(Integer, primary_key=True, autoincrement=False)
+    id = Column(String, primary_key=True, autoincrement=False)
     title = Column(String)
     genre = Column(String)
     director = Column(String)
@@ -46,11 +46,47 @@ class Movies(db.Model):
     description = Column(String)
     released = Column(String)
 
-    def __init__(self, id, title, genre, duration, director, poster, rate, runtime, description, released):
+    def __init__(self, id, title, genre, director, poster, rate, runtime, description, released):
         self.id = id
         self.title = title
         self.genre = genre
-        self.duration = duration
+        self.director = director
+        self.poster = poster
+        self.rate = rate
+        self.runtime = runtime
+        self.description = description
+        self.released = released
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+# Movies
+class Actors(db.Model):
+    __tablename__ = 'actors'
+
+    id = Column(String, primary_key=True, autoincrement=False)
+    title = Column(String)
+    genre = Column(String)
+    director = Column(String)
+    poster = Column(String)
+    rate = Column(Float)
+    runtime = Column(String)
+    description = Column(String)
+    released = Column(String)
+
+    def __init__(self, id, title, genre, director, poster, rate, runtime, description, released):
+        self.id = id
+        self.title = title
+        self.genre = genre
         self.director = director
         self.poster = poster
         self.rate = rate
