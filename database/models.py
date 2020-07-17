@@ -3,9 +3,8 @@ from sqlalchemy import Column, String, Integer, Float, create_engine, DateTime, 
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-database_name = "moviehub"
-database_path = f'postgresql://Saleh:123@localhost:5432/{database_name}'
 
+database_path = os.environ.get('DATABASE_URL')
 db = SQLAlchemy()
 
 # setup db
