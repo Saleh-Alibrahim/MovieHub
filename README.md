@@ -14,7 +14,7 @@ You need to obtain your personal API key from the OMDb API website in order to b
 
 # Authentication
 
-### You need to register to add movie to the list and to been admin to be able to delete movie from the list .
+### You need to register to the appliction to add movie to the list and to be admin to be able to delete movie from the list .
 
 This project use auth0 to use this project you need to have the same setup 
 
@@ -38,7 +38,6 @@ This project use auth0 to use this project you need to have the same setup
         - can `post:movies`
     - Admin
         - can perform all actions
-
 
 
 # Installing Dependencies
@@ -71,9 +70,6 @@ python server.py
 The server will run in debug mode if you need to disable this you 
 
 need to remove  app.debug = True
-
-
-
 
 
 ## About

@@ -4,7 +4,7 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 from database.models import setup_db, Movies, drop_and_create_all
 from auth.auth import AuthError, requires_auth, get_token_auth_header, verify_decode_jwt
-from server import app
+from app import app
 
 from dotenv import load_dotenv
 

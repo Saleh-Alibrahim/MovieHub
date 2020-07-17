@@ -21,9 +21,8 @@ def setup_db(app, database_path=database_path, test=False):
     db.init_app(app)
     # drop tables in test and recreate them
     if test:
-        # source https://stackoverflow.com/questions/35918605/how-to-delete-a-table-in-sqlalchemy
-        engine = create_engine(database_path)
-        Movies.__table__.drop(engine)
+        drop_and_create_all()
+        return
     db.create_all()
 
 
