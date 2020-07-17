@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 import sys
 import requests
-from flask import Flask, render_template, request, Response, flash, session, redirect, url_for
+from flask import Flask, render_template, request, Response, flash, session, redirect, url_for, jsonify
 from database.models import setup_db, Movies, drop_and_create_all
 from auth.auth import AuthError, requires_auth, get_token_auth_header, verify_decode_jwt
 from dotenv import load_dotenv
@@ -56,8 +56,8 @@ def getMovie(movie_id):
     return render_template('pages/show-movie.html', movie=movie)
 
 
-@app.route('/add-movie', methods=['GET'])
-@requires_auth()
+@app.route('/movie', methods=['POST'])
+@requires_auth('post:movies')
 #   @desc      Render the page to be able to add new movie
 #   @route     GET /add-movie
 #   @access    Private
@@ -93,12 +93,53 @@ def updateMovie(movie_id):
     return render_template('pages/movie.html', movie=movie)
 
 
-@app.route('/movie/<string:movie_id>', methods=['DELETE'])
+@app.route('/movie/delete/<string:movie_id>', methods=['GET'])
+@requires_auth('delete:movies')
 #   @desc      Delete movie with given id
 #   @route     Delete /movie/<int:movie_id>
 #   @access    Private
 def deleteMovie(movie_id):
-    return render_template('pages/movie.html', movie=movie)
+
+    movie = Movies.query.filter(Movies.id == movie_id).first()
+
+    movie.delete()
+    return redirect(url_for('home'))
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "success": False,
+        "error": 404,
+        "message": "resource not found"
+    }), 404
+
+
+@app.errorhandler(422)
+def unprocessable(error):
+    return jsonify({
+        "success": False,
+        "error": 422,
+        "message": "unprocessable"
+    }), 422
+
+
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({
+        "success": False,
+        "error": 400,
+        "message": "bad request"
+    }), 400
+
+
+@app.errorhandler(500)
+def server_error(error):
+    return jsonify({
+        "success": False,
+        "error": 500,
+        "message": "server error"
+    }), 500
 
 
 # Create the server
