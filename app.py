@@ -75,7 +75,7 @@ def getMovie(movie_id):
 
 
 @app.route('/movie', methods=['POST'])
-# @requires_auth('post:movies')
+@requires_auth('post:movies')
 #   @desc      Render the page to be able to add new movie
 #   @route     GET /add-movie
 #   @access    Private
