@@ -92,12 +92,13 @@ def addMovie():
     data = requests.get(
         f'http://www.omdbapi.com/?apikey={apiKey}&t={movie}&plot=full')
 
-    if not data:
-        abort(400, 'There is not movie with given name')
+    # Convert the result to json
+    d = data.json()
+
+    if not d['Response'] == 'False':
+        abort(400, 'Movie with givien title  not found!')
 
     try:
-        # Convert the result to json
-        d = data.json()
 
         # Insert to database
         movie = Movies(id=d['imdbID'], title=d['Title'], genre=d['Genre'], director=d['Director'], poster=d['Poster'],
