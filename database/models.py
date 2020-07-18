@@ -43,7 +43,7 @@ class Movies(db.Model):
     genre = Column(String, default=' ')
     director = Column(String, default=' ')
     poster = Column(String, default=' ')
-    rate = Column(Float, default=0)
+    rate = Column(String, default=' ')
     runtime = Column(String, default=' ')
     description = Column(String, default=' ')
     released = Column(String, default=' ')
@@ -51,7 +51,7 @@ class Movies(db.Model):
     language = Column(String, default=' ')
     actors = Column(String, default=' ')
 
-    def __init__(self, id, title=' ', genre=' ', director=' ', poster=' ', rate=0, runtime=' ', description=' ', released=' ', awards=' ', language=' ', actors=' '):
+    def __init__(self, id, title=' ', genre=' ', director=' ', poster=' ', rate=' ', runtime=' ', description=' ', released=' ', awards=' ', language=' ', actors=' '):
         self.id = id
         self.title = title
         self.genre = genre

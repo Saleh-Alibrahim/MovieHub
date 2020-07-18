@@ -24,6 +24,7 @@ setup_db(app)
 
 
 # droop all and create all
+# drop_and_create_all()
 
 # Setup CORS
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -39,9 +40,6 @@ def after_request(response):
                          "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
 
     return response
-
-
-movies_per_page = 10
 
 
 @app.route('/', methods=["GET"])
@@ -77,7 +75,7 @@ def getMovie(movie_id):
 
 
 @app.route('/movie', methods=['POST'])
-@requires_auth('post:movies')
+# @requires_auth('post:movies')
 #   @desc      Render the page to be able to add new movie
 #   @route     GET /add-movie
 #   @access    Private
@@ -94,6 +92,8 @@ def addMovie():
 
     # Convert the result to json
     d = data.json()
+
+    print(d)
 
     if d['Response'] == 'False':
         abort(400, 'Movie with givien title  not found!')
