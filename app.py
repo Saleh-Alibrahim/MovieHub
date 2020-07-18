@@ -95,7 +95,7 @@ def addMovie():
     # Convert the result to json
     d = data.json()
 
-    if not d['Response'] == 'False':
+    if d['Response'] == 'False':
         abort(400, 'Movie with givien title  not found!')
 
     try:
