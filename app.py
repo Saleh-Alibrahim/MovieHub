@@ -99,11 +99,10 @@ def getMovie(movie_id):
 
 
 @app.route('/movie', methods=['POST'])
-@requires_auth()
 #   @desc      Render the page to be able to add new movie
 #   @route     GET /add-movie
 #   @access    Private
-def addMovie(payload):
+def addMovie():
     # Get the api key
     apiKey = os.environ.get('API_KEY')
 
