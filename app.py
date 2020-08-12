@@ -103,7 +103,7 @@ def getMovie(movie_id):
 #   @desc      Render the page to be able to add new movie
 #   @route     GET /add-movie
 #   @access    Private
-def addMovie():
+def addMovie(payload):
     # Get the api key
     apiKey = os.environ.get('API_KEY')
 
