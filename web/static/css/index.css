@@ -93,7 +93,7 @@
 }
 
 body {
-  background-color: #020405;
+  background-color: #081b27;
   font-family: Catamaran, sans-serif;
   color: #333;
   font-size: 16px;
@@ -272,9 +272,7 @@ figcaption {
 .section.footer {
   padding-top: 140px;
   padding-bottom: 0px;
-  background-color: #070c0f;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#081b27), to(rgba(8, 27, 39, 0.8))), url("https://assets.website-files.com/59f5ab35fccfea0001f70443/5a099901d345d400015ce0a7_Photo-8.jpg");
-  background-image: linear-gradient(180deg, #081b27, rgba(8, 27, 39, 0.8)), url("https://assets.website-files.com/59f5ab35fccfea0001f70443/5a099901d345d400015ce0a7_Photo-8.jpg");
+  background-color: #081b27;
   background-position: 0px 0px, 50% 50%;
   background-size: auto, cover;
   font-size: 15px;
@@ -1746,6 +1744,7 @@ figcaption {
   display: block;
   width: 550px;
   margin: 100px auto -70px;
+  text-align: center !important;
 }
 
 .search-field {
@@ -1781,6 +1780,14 @@ figcaption {
   color: #1a1a1a;
   font-size: 0px;
   line-height: 40px;
+}
+
+.search-button2{
+  margin-top: 20px;
+}
+
+.search-button2:hover {
+  opacity: 0.6;
 }
 
 .search-button:hover {

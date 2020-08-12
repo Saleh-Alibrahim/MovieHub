@@ -39,6 +39,8 @@ class Movies(db.Model):
     __tablename__ = 'movies'
 
     id = Column(String, primary_key=True, autoincrement=False)
+    email = Column(String, primary_key=True,
+                   autoincrement=False, default='public')
     title = Column(String, default=' ')
     genre = Column(String, default=' ')
     director = Column(String, default=' ')

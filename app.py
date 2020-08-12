@@ -43,10 +43,18 @@ def after_request(response):
 
 
 @app.route('/', methods=["GET"])
-#   @desc      Get all the movies and render The main page
+#   @desc      Redirect to the public hub
 #   @route     GET /
 #   @access    Public
 def home():
+    return redirect(url_for('public'))
+
+
+@app.route('/public', methods=["GET"])
+#   @desc      Get all the movies and render The main page
+#   @route     GET /public
+#   @access    Public
+def public():
     try:
         # Select all movies
         movies = Movies.query.all()
