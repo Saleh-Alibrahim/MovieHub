@@ -39,8 +39,8 @@ class Movies(db.Model):
     __tablename__ = 'movies'
 
     id = Column(String, primary_key=True, autoincrement=False)
-    email = Column(String, primary_key=True,
-                   autoincrement=False, default='public')
+    userID = Column(String, primary_key=True,
+                    autoincrement=False, default='public')
     title = Column(String, default=' ')
     genre = Column(String, default=' ')
     director = Column(String, default=' ')
@@ -53,8 +53,9 @@ class Movies(db.Model):
     language = Column(String, default=' ')
     actors = Column(String, default=' ')
 
-    def __init__(self, id, title=' ', genre=' ', director=' ', poster=' ', rate=' ', runtime=' ', description=' ', released=' ', awards=' ', language=' ', actors=' '):
+    def __init__(self, id, userID='public', title=' ', genre=' ', director=' ', poster=' ', rate=' ', runtime=' ', description=' ', released=' ', awards=' ', language=' ', actors=' '):
         self.id = id
+        self.userID = userID
         self.title = title
         self.genre = genre
         self.director = director

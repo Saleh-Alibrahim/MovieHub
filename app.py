@@ -24,7 +24,7 @@ setup_db(app)
 
 
 # droop all and create all
-# drop_and_create_all()
+drop_and_create_all()
 
 # Setup CORS
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -51,11 +51,27 @@ def home():
 
 
 @app.route('/public', methods=["GET"])
-#   @desc      Get all the movies and render The main page
+#   @desc      Get all the movies for the public hub
 #   @route     GET /public
 #   @access    Public
 def public():
     try:
+        # Select all movies
+        movies = Movies.query.filter_by(userID='public').all()
+    except Exception as e:
+        print(e)
+        abort(500, 'Server error')
+    return render_template('pages/index.html', movies=movies)
+
+
+@app.route('/private', methods=["GET"])
+@requires_auth()
+#   @desc       Get all the movies for the private hub
+#   @route     GET /private
+#   @access    Private
+def private(payload):
+    try:
+        print(payload)
         # Select all movies
         movies = Movies.query.all()
     except:
@@ -83,7 +99,7 @@ def getMovie(movie_id):
 
 
 @app.route('/movie', methods=['POST'])
-# @requires_auth('post:movies')
+@requires_auth()
 #   @desc      Render the page to be able to add new movie
 #   @route     GET /add-movie
 #   @access    Private
@@ -120,11 +136,11 @@ def addMovie():
 
 
 @app.route('/movie/<string:movie_id>', methods=['PATCH'])
-@requires_auth('patch:movies')
+@requires_auth()
 #   @desc      Update movie with given id
 #   @route     PATCH /movie/<string:movie_id>
 #   @access    Private
-def updateMovie(movie_id):
+def updateMovie(payload, movie_id):
     movie = Movies.query.filter(Movies.id == movie_id).first()
     if not movie:
         abort(400)
@@ -148,11 +164,11 @@ def updateMovie(movie_id):
 
 
 @app.route('/movie/<string:movie_id>', methods=['DELETE'])
-@requires_auth('delete:movies')
+@requires_auth()
 #   @desc      Delete movie with given id
 #   @route     Delete /movie/<int:movie_id>
 #   @access    Private
-def deleteMovie(movie_id):
+def deleteMovie(payload, movie_id):
 
     # Get the movie by id
     movie = Movies.query.filter(Movies.id == movie_id).first()
