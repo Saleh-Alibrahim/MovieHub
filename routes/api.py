@@ -11,7 +11,7 @@ api = Blueprint('api', __name__, static_url_path='',
                 template_folder='web/templates')
 
 
-@api.route('/search', methods=['GET'])
+@api.route('/search', methods=['POST'])
 #   @desc      Request the api and get the all movies which have the same movie name
 #   @route     GET /search
 #   @access    Public
@@ -48,18 +48,20 @@ def searchOne(movie_id):
     apiKey = os.environ.get('API_KEY')
 
     # Get the movie ID
-    movieID = request.form.get("id")
 
     # Request the omdbapi api
     data = requests.get(
-        f'http://www.omdbapi.com/?apikey={apiKey}&i={movieID}&plot=full')
+        f'http://www.omdbapi.com/?apikey={apiKey}&i={movie_id}&plot=full')
 
     # Convert the result to json
     movie = data.json()
 
     # Convert dist to list
-    movies = movies.items()
+    movie = Munch(movie)
+
+    print(movie)
 
     if not movie:
         abort(400, 'There is not movie with given id')
+
     return render_template('pages/movie.html', movie=movie)
