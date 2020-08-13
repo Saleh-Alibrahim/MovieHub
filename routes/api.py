@@ -20,7 +20,9 @@ def searchMovies():
     apiKey = os.environ.get('API_KEY')
 
     # Get the movie ID
-    movieName = request.form.get("name")
+    movieName = request.form.get("query")
+
+    print(movieName)
 
     # Request the omdbapi api
     data = requests.get(
@@ -33,8 +35,6 @@ def searchMovies():
         abort(400, 'Movie with this title not found!')
 
     movies = movies['Search']
-
-    print(movies[0])
 
     return render_template('pages/search.html', movies=movies)
 

@@ -1743,7 +1743,7 @@ figcaption {
 .search-wrapper {
   display: block;
   width: 550px;
-  margin: 100px auto -70px;
+  margin: 40px auto;
   text-align: center !important;
 }
 
