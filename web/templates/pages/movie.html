@@ -2,7 +2,7 @@
 
 
 {% block head %}
-<title>{{movie.title}}</title>
+
 <link href="/css/index.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
@@ -51,6 +51,15 @@
                         <div class="header-info-title bold">Language:</div>
                         <div class="header-info-title">{{movie.Language}}</div>
                     </div>
+                    <div class="header-info-item">
+                        <form method="POST" action="/private">
+                            <input type="hidden" value="{{movie.imdbRating}}" name="id">
+                            <input type="submit" value="Add this movie to the private hub" data-ix="fade-in-on-load-3"
+                                class="button color w-button">
+                        </form>
+
+                    </div>
+
                 </div>
             </div>
         </div>

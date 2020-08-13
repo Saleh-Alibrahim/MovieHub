@@ -22,8 +22,6 @@ def searchMovies():
     # Get the movie ID
     movieName = request.form.get("query")
 
-    print(movieName)
-
     # Request the omdbapi api
     data = requests.get(
         f'http://www.omdbapi.com/?apikey={apiKey}&s={movieName}')
@@ -56,10 +54,8 @@ def searchOne(movie_id):
     # Convert the result to json
     movie = data.json()
 
-    # Convert dist to list
+    # Convert dist to array of object
     movie = Munch(movie)
-
-    print(movie)
 
     if not movie:
         abort(400, 'There is not movie with given id')

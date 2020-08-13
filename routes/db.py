@@ -10,21 +10,21 @@ db = Blueprint('db', __name__, static_url_path='',
                template_folder='web/templates')
 
 
-@db.route('/movie', methods=['POST'])
+@db.route('/private', methods=['POST'])
 @requires_auth()
 #   @desc      Add movie to the database and save it
-#   @route     POST /movie
+#   @route     POST /private
 #   @access    Private
 def addMovie(payload):
     # Get the api key
     apiKey = os.environ.get('API_KEY')
 
     # Get the movie ID
-    movieID = request.form.get("id")
+    id = request.form.get("id")
 
     # Request the omdbapi api
     data = requests.get(
-        f'http://www.omdbapi.com/?apikey={apiKey}&i={movieID}&plot=full')
+        f'http://www.omdbapi.com/?apikey={apiKey}&i={id}&plot=full')
 
     # Convert the result to json
     d = data.json()
@@ -36,8 +36,8 @@ def addMovie(payload):
     try:
 
         # Insert to database
-        movie = Movies(id=d['imdbID'], userID=userID, title=d['Title'], genre=d['Genre'], director=d['Director'], poster=d['Poster'], rate=d['imdbRating'],
-                       runtime=d['Runtime'], description=d['Plot'], released=d['Released'], awards=d['Awards'], language=d['Language'], actors=d['Actors'])
+        movie = Movies(imdbID=d['imdbID'], userID=userID, Title=d['Title'], genre=d['Genre'], Director=d['Director'], Poster=d['Poster'], imdbRating=d['imdbRating'],
+                       Runtime=d['Runtime'], Plot=d['Plot'], Released=d['Released'], Awards=d['Awards'], Language=d['Language'], Actors=d['Actors'], Writer=d['Writer'])
         movie.insert()
 
     except:

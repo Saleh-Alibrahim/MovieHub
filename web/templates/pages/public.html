@@ -1,7 +1,6 @@
 ﻿{% extends 'layouts/layout.html' %}
 
 {% block head %}
-<title>MovieHub</title>
 <link href="/css/index.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
@@ -13,7 +12,7 @@
 
 <div class="section">
     <div class="search-wrapper">
-        <div class="search-title">Looking for something else? Add the movie to the list</div>
+        <div class="search-title">Looking for something else? Search for any movie</div>
         <form id="search-form" action="/search" method="POST" class="search-form w-clearfix w-form">
             <input type="search" class="search-field w-input" maxlength="256" name="query"
                 placeholder="Try The Lord of the Rings" id="search" required="">

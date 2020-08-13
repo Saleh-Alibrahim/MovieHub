@@ -1,7 +1,6 @@
 ﻿{% extends 'layouts/layout.html' %}
 
 {% block head %}
-<title>Moviehub</title>
 <link href="/css/index.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
@@ -11,7 +10,13 @@
 
 
 <div class="section">
-
+    <div class="search-wrapper">
+        <form id="search-form" action="/search" method="POST" class="search-form w-clearfix w-form">
+            <input type="search" class="search-field w-input" maxlength="256" name="query"
+                placeholder="Search for another movie" id="search" required="">
+            <input type="submit" value="." class="search-button w-button">
+        </form>
+    </div>
     <div class="container w-container">
         <div class="section-title-wrapper">
         </div>
