@@ -9,6 +9,8 @@ from munch import *
 api = Blueprint('api', __name__, static_url_path='',
                 static_folder='web/static',
                 template_folder='web/templates')
+# Get the api key
+apiKey = os.environ.get('API_KEY')
 
 
 @api.route('/search', methods=['POST'])
@@ -16,8 +18,6 @@ api = Blueprint('api', __name__, static_url_path='',
 #   @route     GET /search
 #   @access    Public
 def searchMovies():
-    # Get the api key
-    apiKey = os.environ.get('API_KEY')
 
     # Get the movie ID
     movieName = request.form.get("query")
@@ -42,10 +42,6 @@ def searchMovies():
 #   @route     GET /search/<string:movie_id>
 #   @access    Public
 def searchOne(movie_id):
-    # Get the api key
-    apiKey = os.environ.get('API_KEY')
-
-    # Get the movie ID
 
     # Request the omdbapi api
     data = requests.get(
@@ -56,7 +52,7 @@ def searchOne(movie_id):
 
     # Convert dist to array of object
     movie = Munch(movie)
-
+    movie.search = True
     if not movie:
         abort(400, 'There is not movie with given id')
 

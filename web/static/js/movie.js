@@ -1,7 +1,11 @@
 const movieId = document.getElementById('movie-id').value;
-document.getElementById('add-movie').addEventListener('click', function (e) {
 
-    console.log('movieId', movieId);
+$('#private-button').click(function (e) {
+
+    if (!jwt) {
+        alert('Sorry you need to register before adding to your private hub');
+        return;
+    }
     fetch('/private', {
         method: 'POST',
         headers: {
@@ -10,9 +14,29 @@ document.getElementById('add-movie').addEventListener('click', function (e) {
         body: JSON.stringify(movieId)
     })
         .then(res => res.json())
-        .then(data => {
-            alert('Movie has been added to the private hub');
-            console.log(data);
+        .then(res => {
+            alert(res.msg);
         })
-        .catch(err => alert('This movie exist in the private hub'));
+        .catch(err => alert(err.message));
+});
+
+$('#public-button').click(function (e) {
+
+    if (!jwt) {
+        alert('Sorry you need to register before adding to your private hub');
+        return;
+    }
+
+    fetch('/public', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(movieId)
+    })
+        .then(res => res.json())
+        .then(res => {
+            alert(res.msg);
+        })
+        .catch(err => alert(err.message));
 });
