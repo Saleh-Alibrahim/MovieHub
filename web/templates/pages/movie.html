@@ -52,10 +52,12 @@
                         <div class="header-info-title bold">Language:</div>
                         <div class="header-info-title">{{movie.Language}}</div>
                     </div>
+                    {% if movie.db is not defined %}
                     <div class="header-info-item">
                         <input id="add-movie" type="button" value="Add to the private hub" data-ix="fade-in-on-load-3"
                             class="button  w-button">
                     </div>
+                    {% endif  %}
 
                 </div>
             </div>

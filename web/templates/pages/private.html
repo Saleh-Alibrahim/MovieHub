@@ -26,19 +26,19 @@
                 <div class="item-list-wrapper w-dyn-list">
                     <div role="list" class="item-list w-dyn-items w-row">
                         {% for m in movies %}
-                        <div role="listitem" id="{{m.id}}" class="item mobile-half w-dyn-item w-col w-col-3">
+                        <div role="listitem" id="{{m.imdbID}}" class="item mobile-half w-dyn-item w-col w-col-3">
                             <div class="item-block in-list">
-                                <a href="/movie/{{m.id}}" style="background-image:url({{m.poster}})"
+                                <a href="/movie/{{m.imdbID}}" style="background-image:url({{m.Poster}})"
                                     class="item-image-block poster-format mobile-larger w-inline-block">
-                                    <div class="item-number">{{m.rate}}</div>
+                                    <div class="item-number">{{m.imdbRating}}</div>
                                 </a>
-                                <a href="/movie/{{m.id}}" class="item-block-title">{{m.title}}</a>
+                                <a href="/movie/{{m.imdbID}}" class="item-block-title">{{m.Title}}</a>
                                 <div class="info-wrapper small">
                                     <div class="info-block">
-                                        <img src="/img/icons/genre.svg" alt="" class="info-block-icon small">{{m.genre}}
+                                        <img src="/img/icons/genre.svg" alt="" class="info-block-icon small">{{m.Genre}}
                                     </div>
                                 </div>
-                                <input type="button" class="button w-button" onclick="deleteButton('{{m.id}}')"
+                                <input type="button" class="button w-button" onclick="deleteButton('{{m.imdbID}}')"
                                     value="Delete">
                             </div>
                         </div>

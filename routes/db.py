@@ -57,10 +57,12 @@ def addMovie(payload):
 #   @route     GET /movie/<string:movie_id>
 #   @access    Public
 def getMovie(movie_id):
-    movie = Movies.query.filter(Movies.id == movie_id).first()
+    movie = Movies.query.filter(Movies.imdbID == movie_id).first()
+
     if not movie:
         abort(400, 'There is not movie with given id')
-    return render_template('pages/show-movie.html', movie=movie)
+    movie.db = True
+    return render_template('pages/movie.html', movie=movie)
 
 
 @db.route('/movie/<string:movie_id>', methods=['DELETE'])
@@ -73,7 +75,7 @@ def deleteMovie(payload, movie_id):
     userID = payload['sub']
 
     # Get the movie by id
-    movie = Movies.query.filter_by(id=movie_id, userID=userID).first()
+    movie = Movies.query.filter_by(imdbID=movie_id, userID=userID).first()
 
     if not movie:
         abort(400, 'There is not movie with the given id')

@@ -11,7 +11,8 @@ document.getElementById('add-movie').addEventListener('click', function (e) {
     })
         .then(res => res.json())
         .then(data => {
+            alert('Movie has been added to the private hub');
             console.log(data);
         })
-        .catch(err => console.error('Error:', err));
+        .catch(err => alert('This movie exist in the private hub'));
 });
