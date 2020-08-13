@@ -32,15 +32,15 @@
                                         <img src="/img/icons/genre.svg" alt="" class="info-block-icon small">{{m.genre}}
                                     </div>
                                 </div>
-                                <input type="button" class="button w-button delete-button"
-                                    onclick="deleteButton('{{m.id}}')" value="Delete">
+                                <input type="button" class="button w-button" onclick="deleteButton('{{m.id}}')"
+                                    value="Delete">
                             </div>
                         </div>
                         {% endfor %}
                     </div>
                     <div class="search-wrapper">
                         <div class="search-title">Looking for something else? Add the movie to the list</div>
-                        <form id="search-form" action="/movie" method="POST" class="search-form w-clearfix w-form">
+                        <form id="search-form" action="/search" method="GET" class="search-form w-clearfix w-form">
                             <input type="search" class="search-field w-input" maxlength="256" name="query"
                                 placeholder="Try The Lord of the Rings" id="search" required=""><input type="submit"
                                 value="." class="search-button w-button">
