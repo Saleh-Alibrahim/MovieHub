@@ -17,6 +17,7 @@
                         <div class="review-circle-title">{{movie.imdbRating}}</div>
                     </div>
                 </div>
+                <input id="movie-id" type="hidden" value="{{movie.imdbID}}">
                 <h1 class="header-title">{{movie.Title}}</h1>
                 <div class="info-wrapper on-review-page">
                     <div class="info-block"><img src="/img/icons/genre.svg" alt=""
@@ -52,12 +53,8 @@
                         <div class="header-info-title">{{movie.Language}}</div>
                     </div>
                     <div class="header-info-item">
-                        <form method="POST" action="/private">
-                            <input type="hidden" value="{{movie.imdbRating}}" name="id">
-                            <input type="submit" value="Add this movie to the private hub" data-ix="fade-in-on-load-3"
-                                class="button color w-button">
-                        </form>
-
+                        <input id="add-movie" type="button" value="Add to the private hub" data-ix="fade-in-on-load-3"
+                            class="button  w-button">
                     </div>
 
                 </div>
@@ -71,6 +68,7 @@
 
 {% endblock %}
 {% block scripts %}
+<script src="../js/movie.js"></script>
 <script src="../js/auth.js"></script>
 <script src="../js/webflow-library.js" type="text/javascript"></script>
 <script src="../js/webflow-library2.js" type="text/javascript"></script>

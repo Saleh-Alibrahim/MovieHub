@@ -38,7 +38,7 @@ def drop_and_create_all():
 class Movies(db.Model):
     __tablename__ = 'movies'
 
-    id = Column(String, primary_key=True, autoincrement=False)
+    imdbID = Column(String, primary_key=True, autoincrement=False)
     userID = Column(String, primary_key=True,
                     autoincrement=False, default='public')
     Title = Column(String, default=' ')
@@ -54,8 +54,8 @@ class Movies(db.Model):
     Actors = Column(String, default=' ')
     Writer = Column(String, default=' ')
 
-    def __init__(self, id, userID='public', Title=' ', Genre=' ', Director=' ', Poster=' ', imdbRating=' ', Runtime=' ', Plot=' ', Released=' ', Awards=' ', Language=' ', Actors=' ', Writer=' '):
-        self.id = id
+    def __init__(self, imdbID, userID='public', Title=' ', Genre=' ', Director=' ', Poster=' ', imdbRating=' ', Runtime=' ', Plot=' ', Released=' ', Awards=' ', Language=' ', Actors=' ', Writer=' '):
+        self.imdbID = imdbID
         self.userID = userID
         self.Title = Title
         self.Genre = Genre

@@ -19,8 +19,11 @@ def addMovie(payload):
     # Get the api key
     apiKey = os.environ.get('API_KEY')
 
+    id = request.get_json()
+
+    print(id)
+
     # Get the movie ID
-    id = request.form.get("id")
 
     # Request the omdbapi api
     data = requests.get(
@@ -36,11 +39,12 @@ def addMovie(payload):
     try:
 
         # Insert to database
-        movie = Movies(imdbID=d['imdbID'], userID=userID, Title=d['Title'], genre=d['Genre'], Director=d['Director'], Poster=d['Poster'], imdbRating=d['imdbRating'],
+        movie = Movies(imdbID=d['imdbID'], userID=userID, Title=d['Title'], Genre=d['Genre'], Director=d['Director'], Poster=d['Poster'], imdbRating=d['imdbRating'],
                        Runtime=d['Runtime'], Plot=d['Plot'], Released=d['Released'], Awards=d['Awards'], Language=d['Language'], Actors=d['Actors'], Writer=d['Writer'])
         movie.insert()
 
-    except:
+    except Exception as e:
+        print(e)
         abort(400, 'This movie exist in the list')
 
     return jsonify({
