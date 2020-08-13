@@ -1,0 +1,57 @@
+﻿{% extends 'layouts/layout.html' %}
+
+{% block head %}
+<link href="/css/index.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+{% block body %}
+
+
+
+<div class="section">
+    <div class="search-wrapper">
+        <form id="search-form" action="/search" method="POST" class="search-form w-clearfix w-form">
+            <input type="search" class="search-field w-input" maxlength="256" name="query"
+                placeholder="Search for another movie" id="search" required="">
+            <input type="submit" value="." class="search-button w-button">
+        </form>
+    </div>
+    <div class="container w-container">
+        <div class="section-title-wrapper">
+        </div>
+        <div data-duration-in="300" data-duration-out="100" class="tabs w-tabs">
+            <div data-w-tab="Grid" class="tab-pane w-tab-pane w--tab-active">
+                <div class="item-list-wrapper w-dyn-list">
+                    <div role="list" class="item-list w-dyn-items w-row">
+                        {% for m in movies %}
+                        <div role="listitem" id="{{m['imdbID']}}" class="item mobile-half w-dyn-item w-col w-col-3">
+                            <div class="item-block in-list">
+                                <a href="/search/{{m['imdbID']}}" style="background-image:url({{m['Poster']}})"
+                                    class="item-image-block poster-format mobile-larger w-inline-block">
+                                </a>
+                                <a href="/search/{{m['imdbID']}}" class="item-block-title">{{m['Title']}}</a>
+                                <div class="info-wrapper small">
+                                    <div class="info-block">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div id="toast"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/js/auth.js"></script>
+<script src="/js/webflow-library.js" type="text/javascript"></script>
+{% endblock %}
+
+</body>
+
+</html>

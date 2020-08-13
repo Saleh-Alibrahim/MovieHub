@@ -7,6 +7,7 @@
     <meta property="og:title">
     <meta property="twitter:title">
     <meta property="og:type" content="website">
+    <title>MovieHub</title>
     <meta content="width=device-width, initial-scale=1" name="viewport">
     {% block head %}
     {% endblock %}
@@ -30,9 +31,10 @@
                 <nav role="navigation" class="nav-menu w-nav-menu">
 
                     <a href="/public" class="nav-link w-nav-link">Public hub</a>
-                    <a id="private-nav" class="nav-link w-nav-link">Private hub</a>
+                    <a style="display: none;" href="/private" id="private-nav" class="nav-link w-nav-link">Private
+                        hub</a>
                     <a href="/about" class="nav-link w-nav-link">About us</a>
-                    <a id="login" class="nav-link w-nav-link">Login</a>
+                    <a id="login" class="nav-link w-nav-link">Login / Register</a>
                     <a style="display: none;" id="logout" class="nav-link w-nav-link">Logout</a>
                 </nav>
                 <div class="menu-button w-nav-button">

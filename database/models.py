@@ -38,35 +38,37 @@ def drop_and_create_all():
 class Movies(db.Model):
     __tablename__ = 'movies'
 
-    id = Column(String, primary_key=True, autoincrement=False)
+    imdbID = Column(String, primary_key=True, autoincrement=False)
     userID = Column(String, primary_key=True,
                     autoincrement=False, default='public')
-    title = Column(String, default=' ')
-    genre = Column(String, default=' ')
-    director = Column(String, default=' ')
-    poster = Column(String, default=' ')
-    rate = Column(String, default=' ')
-    runtime = Column(String, default=' ')
-    description = Column(String, default=' ')
-    released = Column(String, default=' ')
-    awards = Column(String, default=' ')
-    language = Column(String, default=' ')
-    actors = Column(String, default=' ')
+    Title = Column(String, default=' ')
+    Genre = Column(String, default=' ')
+    Director = Column(String, default=' ')
+    Poster = Column(String, default=' ')
+    imdbRating = Column(String, default=' ')
+    Runtime = Column(String, default=' ')
+    Plot = Column(String, default=' ')
+    Released = Column(String, default=' ')
+    Awards = Column(String, default=' ')
+    Language = Column(String, default=' ')
+    Actors = Column(String, default=' ')
+    Writer = Column(String, default=' ')
 
-    def __init__(self, id, userID='public', title=' ', genre=' ', director=' ', poster=' ', rate=' ', runtime=' ', description=' ', released=' ', awards=' ', language=' ', actors=' '):
-        self.id = id
+    def __init__(self, imdbID, userID='public', Title=' ', Genre=' ', Director=' ', Poster=' ', imdbRating=' ', Runtime=' ', Plot=' ', Released=' ', Awards=' ', Language=' ', Actors=' ', Writer=' '):
+        self.imdbID = imdbID
         self.userID = userID
-        self.title = title
-        self.genre = genre
-        self.director = director
-        self.poster = poster
-        self.rate = rate
-        self.runtime = runtime
-        self.description = description
-        self.released = released
-        self.awards = awards
-        self.language = language
-        self.actors = actors
+        self.Title = Title
+        self.Genre = Genre
+        self.Director = Director
+        self.Poster = Poster
+        self.imdbRating = imdbRating
+        self.Runtime = Runtime
+        self.Plot = Plot
+        self.Released = Released
+        self.Awards = Awards
+        self.Language = Language
+        self.Actors = Actors
+        self.Writer = Writer
 
     def insert(self):
         db.session.add(self)

@@ -2,7 +2,7 @@
 
 
 {% block head %}
-<title>{{movie.title}}</title>
+
 <link href="/css/index.css" rel="stylesheet" type="text/css">
 {% endblock %}
 
@@ -11,42 +11,58 @@
     <div data-w-id="fb504413-d5b4-3ca2-7c6c-2e8872f7d460" class="dynamic-header-overlay">
         <div class="container w-container">
             <div class="header-content-block">
-                <div style="background-image:url({{movie.poster}}); background-size: cover;"
+                <div style="background-image:url({{movie.Poster}}); background-size: cover;"
                     class="header-thumbnail-image">
                     <div class="review-circle">
-                        <div class="review-circle-title">{{movie.rate}}</div>
+                        <div class="review-circle-title">{{movie.imdbRating}}</div>
                     </div>
                 </div>
-                <h1 class="header-title">{{movie.title}}</h1>
+                <input id="movie-id" type="hidden" value="{{movie.imdbID}}">
+                <h1 class="header-title">{{movie.Title}}</h1>
                 <div class="info-wrapper on-review-page">
                     <div class="info-block"><img src="/img/icons/genre.svg" alt=""
-                            class="info-block-icon">{{movie.genre}}</div>
+                            class="info-block-icon">{{movie.Genre}}</div>
                     <div class="info-block"><img src="/img/icons/duration.svg" alt="" class="info-block-icon">
-                        <div class="info-title">{{movie.released}}</div>
+                        <div class="info-title">{{movie.Released}}</div>
                     </div>
                 </div>
-                <p class="header-short-description">{{movie.description}}</p>
+                <p class="header-short-description">{{movie.Plot}}</p>
                 <div class="header-info-block">
                     <div class="header-info-item">
                         <div class="header-info-title bold">Duration:</div>
-                        <div class="header-info-title">{{movie.runtime}}</div>
+                        <div class="header-info-title">{{movie.Runtime}}</div>
                     </div>
                     <div class="header-info-item">
                         <div class="header-info-title bold">Director:</div>
-                        <div class="header-info-title">{{movie.director}}</div>
+                        <div class="header-info-title">{{movie.Director}}</div>
                     </div>
                     <div class="header-info-item">
                         <div class="header-info-title bold">Actors:</div>
-                        <div class="header-info-title">{{movie.actors}}</div>
+                        <div class="header-info-title">{{movie.Actors}}</div>
                     </div>
+                    <!-- <div class="header-info-item">
+                        <div class="header-info-title bold">Writer:</div>
+                        <div class="header-info-title">{{movie.Writer}}</div>
+                    </div> -->
                     <div class="header-info-item">
                         <div class="header-info-title bold">Awards:</div>
-                        <div class="header-info-title">{{movie.awards}}</div>
+                        <div class="header-info-title">{{movie.Awards}}</div>
                     </div>
                     <div class="header-info-item">
                         <div class="header-info-title bold">Language:</div>
-                        <div class="header-info-title">{{movie.language}}</div>
+                        <div class="header-info-title">{{movie.Language}}</div>
                     </div>
+                    {% if movie.search is defined %}
+                    <div id="movie-button-list">
+                        <div class="header-info-item">
+                            <input id="private-button" type="button" value="Add to the private hub"
+                                data-ix="fade-in-on-load-3" class="button  w-button">
+                            <input id="public-button" type="button" value="Add to the public hub"
+                                data-ix="fade-in-on-load-3" class="button  w-button">
+                        </div>
+                    </div>
+                    {% endif  %}
+
                 </div>
             </div>
         </div>
@@ -59,6 +75,6 @@
 {% endblock %}
 {% block scripts %}
 <script src="../js/auth.js"></script>
+<script src="../js/movie.js"></script>
 <script src="../js/webflow-library.js" type="text/javascript"></script>
-<script src="../js/webflow-library2.js" type="text/javascript"></script>
 {% endblock %}

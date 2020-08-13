@@ -373,6 +373,7 @@ figcaption {
   text-align: center;
 }
 
+
 .item-number.top-right {
   left: auto;
   top: 23px;
@@ -606,10 +607,9 @@ figcaption {
 }
 
 .header-title {
-  max-width: 70%;
-  margin-top: 0px;
+  margin-top: 100px;
   margin-bottom: 0px;
-  font-size: 68px;
+  font-size: 50px;
   line-height: 60px;
   font-weight: 800;
 }
@@ -638,6 +638,7 @@ figcaption {
   width: 86.8125px;
   margin-right: 10px;
   font-weight: 700;
+  color: #f1b722;
 }
 
 .button {
@@ -647,6 +648,7 @@ figcaption {
   transition: background-color 200ms ease, border 200ms ease, background-color 200ms ease, color 200ms ease, box-shadow 200ms ease;
   font-size: 15px;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .delete-button{
@@ -735,7 +737,9 @@ figcaption {
 .section-subtitle.inline-block.cms-title {
   color: #9cbacf;
 }
-
+.public-delete{
+  display:none;
+}
 .tabs-menu {
   position: absolute;
   top: -30px;
@@ -1743,7 +1747,7 @@ figcaption {
 .search-wrapper {
   display: block;
   width: 550px;
-  margin: 100px auto -70px;
+  margin: 40px auto;
   text-align: center !important;
 }
 
@@ -2068,11 +2072,11 @@ figcaption {
 }
 
 .navbar-wrapper-fixed {
-  position: fixed;
+  position: sticky;
   left: 0%;
   top: 0%;
   right: 0%;
-  bottom: auto;
+  bottom: 0%;
   z-index: 2000;
 }
 
@@ -2283,10 +2287,15 @@ figcaption {
     height: 420px;
   }
   .header-title {
+    display: inline-block;
     max-width: 100%;
     font-size: 55px;
     line-height: 55px;
   }
+  #movie-button-list input{
+    display: inline;
+  }
+  
   .header-short-description {
     line-height: 27px;
   }
@@ -3038,9 +3047,10 @@ figcaption {
     margin-bottom: 30px;
   }
   .header-title {
-    font-size: 40px;
+    font-size: 30px;
     line-height: 40px;
   }
+ 
   .header-short-description {
     font-size: 15px;
     line-height: 25px;
