@@ -42,7 +42,6 @@ def private(payload):
         # Select all movies which has the same userID
         movies = Movies.query.filter_by(userID=userID).all()
         url = request.base_url+'/'+userID
-        print(url)
     except:
         abort(500, 'Server error')
     return render_template('pages/private.html', movies=movies, url=url)
@@ -56,7 +55,6 @@ def privateGit(userID):
     try:
         if(not userID):
             abort(404, 'Not found wrong private hub id')
-        print(userID)
         # Select all movies which has the same userID
         movies = Movies.query.filter_by(userID=userID).all()
     except:
