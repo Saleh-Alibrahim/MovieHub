@@ -20,7 +20,7 @@ apiKey = os.environ.get('API_KEY')
 def searchMovies():
 
     # Get the movie ID
-    movieName = request.form.get("query").trim()
+    movieName = request.form.get("query").strip()
 
     # Request the omdbapi api
     data = requests.get(
