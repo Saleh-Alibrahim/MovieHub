@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 from routes.index import index
 from routes.api import api
 from routes.db import db
-from flask_talisman import Talisman
 
 
 # load the env variables
@@ -37,6 +36,12 @@ setup_db(app)
 
 # Setup CORS
 CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+
+@app.before_request
+def force_https():
+    if request.endpoint in app.view_functions and not request.is_secure:
+        return redirect(request.url.replace('http://', 'https://'))
 
 
 @app.after_request
