@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from routes.index import index
 from routes.api import api
 from routes.db import db
+from flask_talisman import Talisman
 
 
 # load the env variables
@@ -36,14 +37,6 @@ setup_db(app)
 
 # Setup CORS
 CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-
-@app.before_request
-def before_request():
-    if request.url.startswith('http://') and env == "production":
-        url = request.url.replace('http://', 'http://', 1)
-        code = 301
-        return redirect(url, code=code)
 
 
 @app.after_request
