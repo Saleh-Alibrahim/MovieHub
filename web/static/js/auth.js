@@ -56,10 +56,7 @@ function parseJwt(token) {
 
     return JSON.parse(jsonPayload);
 }
-//  Delete the cookie on logout
-$('#logout').on('click', function (e) {
-    deleteCookie('jwt');
-});
+
 
 function deletePublic(id) {
     if (!jwt) {
@@ -110,5 +107,10 @@ function deletePrivate(id) {
         })
         .catch(err => alert(err.message));
 }
+
+//  Delete the cookie on logout
+$('#logout').on('click', async (e) => {
+    deleteCookie('jwt');
+});
 
 

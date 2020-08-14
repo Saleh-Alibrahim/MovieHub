@@ -38,7 +38,7 @@
                                         <img src="/img/icons/genre.svg" alt="" class="info-block-icon small">{{m.Genre}}
                                     </div>
                                 </div>
-                                {% if guest is defined %}
+                                {% if guest is not defined %}
                                 <input type="button" class="button w-button" onclick="deletePrivate('{{m.imdbID}}')"
                                     value="Delete">
                                 {% endif  %}
