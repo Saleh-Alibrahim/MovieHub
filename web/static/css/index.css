@@ -78,7 +78,7 @@
 }
 
 #public-button{
-  display: none;
+  display: none !important;
 }
 
 .w-pagination-previous-icon {

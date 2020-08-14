@@ -15,6 +15,7 @@ from routes.db import db
 # load the env variables
 load_dotenv()
 
+env = os.environ.get('ENV')
 
 # Create flask app
 app = Flask(__name__, static_url_path='',
@@ -35,6 +36,14 @@ setup_db(app)
 
 # Setup CORS
 CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+
+@app.before_request
+def before_request():
+    if request.url.startswith('http://') and env == "production":
+        url = request.url.replace('http://', 'http://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 
 @app.after_request
