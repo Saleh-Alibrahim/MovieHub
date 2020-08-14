@@ -45,6 +45,16 @@
                         {% endfor %}
                     </div>
                     <div id="toast"></div>
+                    {% if guest is not  defined %}
+                    <div class="copy-wrapper">
+                        <div class="search-title">Want to share your private hub? just copy this link</div>
+                        <div class="search-form w-clearfix w-form">
+                            <input id="private-link" type="text" class="search-field w-input disabled" value="{{url}}"
+                                readonly>
+                            <input type="button" value="copy" class="copy-button  w-button">
+                        </div>
+                    </div>
+                    {% endif  %}
                 </div>
             </div>
         </div>
@@ -53,6 +63,7 @@
 </div>
 {% endblock %}
 {% block scripts %}
+<script src="/js/private.js"></script>
 <script src="/js/auth.js"></script>
 <script src="/js/webflow-library.js" type="text/javascript"></script>
 {% endblock %}

@@ -30,7 +30,7 @@ def addMoviePublic(payload):
         }), 401
 
     # Check if the user have permissions to accsses this rescuers
-    if 'post:movies' not in payload['permissions']:
+    if 'post:public' not in payload['permissions']:
         return jsonify({
             'success': False,
             'msg': 'Sorry only selected users can add movies to the public hub',
@@ -142,7 +142,7 @@ def deleteMoviePublic(payload):
         }), 401
 
     # Check if the user have permissions to accsses this rescuers
-    if 'delete:movies' not in payload['permissions']:
+    if 'delete:public' not in payload['permissions']:
         return jsonify({
             'success': False,
             'msg': 'Sorry only selected users can add movies to the public hub',

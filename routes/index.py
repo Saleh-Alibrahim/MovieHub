@@ -41,9 +41,27 @@ def private(payload):
         userID = payload['sub']
         # Select all movies which has the same userID
         movies = Movies.query.filter_by(userID=userID).all()
+        url = request.base_url+'/'+userID
+        print(url)
     except:
         abort(500, 'Server error')
-    return render_template('pages/private.html', movies=movies)
+    return render_template('pages/private.html', movies=movies, url=url)
+
+
+@index.route('/private/<string:userID>', methods=["GET"])
+#   @desc      Get all the movies for 1 user
+#   @route     GET /private
+#   @access    Private
+def privateGit(userID):
+    try:
+        if(not userID):
+            abort(404, 'Not found wrong private hub id')
+        print(userID)
+        # Select all movies which has the same userID
+        movies = Movies.query.filter_by(userID=userID).all()
+    except:
+        abort(500, 'Server error')
+    return render_template('pages/private.html', movies=movies, userID=userID, guest=True)
 
 
 @index.route('/about', methods=["GET"])

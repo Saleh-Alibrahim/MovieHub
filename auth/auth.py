@@ -117,6 +117,7 @@ def requires_auth(permission=None):
             payload = verify_decode_jwt(token)
             if permission is not None:
                 check_permissions(permission, payload)
+            payload['sub'] = payload['sub'][6:]
             return f(payload, *args, **kwargs)
 
         return wrapper
