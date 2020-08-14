@@ -38,14 +38,16 @@
                                         <img src="/img/icons/genre.svg" alt="" class="info-block-icon small">{{m.Genre}}
                                     </div>
                                 </div>
+                                {% if guest is defined %}
                                 <input type="button" class="button w-button" onclick="deletePrivate('{{m.imdbID}}')"
                                     value="Delete">
+                                {% endif  %}
                             </div>
                         </div>
                         {% endfor %}
                     </div>
                     <div id="toast"></div>
-                    {% if guest is not  defined %}
+                    {% if guest is not defined %}
                     <div class="copy-wrapper">
                         <div class="search-title">Want to share your private hub? just copy this link</div>
                         <div class="search-form w-clearfix w-form">

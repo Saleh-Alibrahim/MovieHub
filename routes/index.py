@@ -49,9 +49,9 @@ def private(payload):
 
 @index.route('/private/<string:userID>', methods=["GET"])
 #   @desc      Get all the movies for 1 user
-#   @route     GET /private
-#   @access    Private
-def privateGit(userID):
+#   @route     GET /<string:userID>
+#   @access    Public
+def privateGuest(userID):
     try:
         if(not userID):
             abort(404, 'Not found wrong private hub id')

@@ -52,8 +52,7 @@ def searchOne(movie_id):
 
     # Convert dist to array of object
     movie = Munch(movie)
-    movie.search = True
     if not movie:
         abort(400, 'There is not movie with given id')
 
-    return render_template('pages/movie.html', movie=movie)
+    return render_template('pages/movie.html', movie=movie, buttons=True)

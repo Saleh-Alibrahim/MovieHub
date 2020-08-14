@@ -121,7 +121,7 @@ def getMovie(movie_id):
 
     if not movie:
         abort(400, 'There is not movie with given id')
-    return render_template('pages/movie.html', movie=movie)
+    return render_template('pages/movie.html', movie=movie, buttons=True)
 
 
 @db.route('/public', methods=['DELETE'])
