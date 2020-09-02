@@ -1470,9 +1470,7 @@ figcaption {
 }
 
 .bottom-footer-paragraph {
-  display: inline-block;
-  margin-right: 5px;
-  margin-left: 5px;
+  font-size: 1rem ;
 }
 
 .bottom-footer-link {
