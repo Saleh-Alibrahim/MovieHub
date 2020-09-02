@@ -57,6 +57,9 @@ def privateGuest(userID):
             abort(404, 'Not found wrong private hub id')
         # Select all movies which has the same userID
         movies = Movies.query.filter_by(userID=userID).all()
+
+        if(not movies):
+            abort(400, 'There is not hub with given ID')
     except:
         abort(500, 'Server error')
     return render_template('pages/private.html', movies=movies, userID=userID, guest=True)
