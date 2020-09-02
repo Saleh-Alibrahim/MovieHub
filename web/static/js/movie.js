@@ -3,7 +3,13 @@ const movieId = document.getElementById('movie-id').value;
 $('#private-button').click(function (e) {
 
     if (!jwt) {
-        alert('Sorry you need to register before adding to your private hub');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Sorry you need to register before adding to your private hub',
+            confirmButtonColor: '#f1b722',
+            background: '#0c2738',
+        });
         return;
     }
     fetch('/private', {
@@ -15,15 +21,46 @@ $('#private-button').click(function (e) {
     })
         .then(res => res.json())
         .then(res => {
-            alert(res.msg);
+            if (res.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Great .',
+                    text: res.msg,
+                    confirmButtonColor: '#f1b722',
+                    background: '#0c2738',
+                });
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: res.msg,
+                    confirmButtonColor: '#f1b722',
+                    background: '#0c2738',
+                });
+            }
         })
-        .catch(err => alert(err.message));
+        .catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.message,
+                confirmButtonColor: '#f1b722',
+                background: '#0c2738',
+            });
+        });
 });
 
 $('#public-button').click(function (e) {
 
     if (!jwt) {
-        alert('Sorry you need to register before adding to your private hub');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Sorry you need to register before adding to your private hub',
+            confirmButtonColor: '#f1b722',
+            background: '#0c2738',
+        });
         return;
     }
 
@@ -36,7 +73,32 @@ $('#public-button').click(function (e) {
     })
         .then(res => res.json())
         .then(res => {
-            alert(res.msg);
+            if (res.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Great .',
+                    text: res.msg,
+                    confirmButtonColor: '#f1b722',
+                    background: '#0c2738',
+                });
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: res.msg,
+                    confirmButtonColor: '#f1b722',
+                    background: '#0c2738',
+                });
+            }
         })
-        .catch(err => alert(err.message));
+        .catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.message,
+                confirmButtonColor: '#f1b722',
+                background: '#0c2738',
+            });
+        });
 });

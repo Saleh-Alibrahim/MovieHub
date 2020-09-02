@@ -60,7 +60,13 @@ function parseJwt(token) {
 
 function deletePublic(id) {
     if (!jwt) {
-        alert('Sorry you need to register before adding to your private hub');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Sorry you need to register before adding to your private hub',
+            confirmButtonColor: '#f1b722',
+            background: '#0c2738',
+        });
         return;
     }
 
@@ -77,15 +83,35 @@ function deletePublic(id) {
                 window.location.reload(true);
             }
             else {
-                alert(res.msg);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: res.msg,
+                    confirmButtonColor: '#f1b722',
+                    background: '#0c2738',
+                });
             }
         })
-        .catch(err => alert(err.message));
+        .catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.message,
+                confirmButtonColor: '#f1b722',
+                background: '#0c2738',
+            });
+        });
 }
 
 function deletePrivate(id) {
     if (!jwt) {
-        alert('Sorry you need to register before adding to your private hub');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Sorry you need to register before adding to your private hub',
+            confirmButtonColor: '#f1b722',
+            background: '#0c2738',
+        });
         return;
     }
 
@@ -102,10 +128,24 @@ function deletePrivate(id) {
                 window.location.reload(true);
             }
             else {
-                alert(res.msg);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: res.msg,
+                    confirmButtonColor: '#f1b722',
+                    background: '#0c2738',
+                });
             }
         })
-        .catch(err => alert(err.message));
+        .catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.message,
+                confirmButtonColor: '#f1b722',
+                background: '#0c2738',
+            });
+        });
 }
 
 //  Delete the cookie on logout

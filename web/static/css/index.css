@@ -78,13 +78,19 @@
 }
 
 #public-button{
-  display: none !important;
+  display: none;
 }
 
 .w-pagination-previous-icon {
   margin-right: 4px;
 }
 
+#swal2-title{
+  color:white;
+}
+#swal2-content{
+  color:white;
+}
 
 
 .w-pagination-next {
