@@ -1,6 +1,5 @@
 if (jwt) {
     const payload = parseJwt(jwt);
-    console.log(payload.permissions)
     if (payload.permissions.includes("delete:public")) {
         $('.public-delete').css('display', 'inline-block');
     }

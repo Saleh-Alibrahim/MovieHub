@@ -1,5 +1,7 @@
 const url = window.location.origin;
 
+
+
 document.getElementById('login').href = `https://moviehub.eu.auth0.com/authorize?response_type=token&audience=moviehub&client_id=DMqcGxMMzfF2MKkrlt2F360RSi2D1PK9&redirect_uri=
 ${url}`;
 document.getElementById('logout').href = `https://moviehub.eu.auth0.com/v2/logout?returnTo=${url}&client_id=DMqcGxMMzfF2MKkrlt2F360RSi2D1PK9`;
@@ -34,10 +36,10 @@ function createCookie(name, value, expires) {
         cookie += "expires=" + expires.toGMTString() + ";";
     }
 
-    cookie += "expires=" + expires.toGMTString() + ";";
+    cookie += "Path=/; expires=" + expires.toGMTString() + "; ";
     document.cookie = cookie;
 }
-function deleteCookie(name) {
+async function deleteCookie(name) {
     // If the cookie exists delete it 
     if (getCookie(name))
         createCookie(name, "", -1,);
@@ -150,6 +152,7 @@ function deletePrivate(id) {
 
 //  Delete the cookie on logout
 $('#logout').on('click', async (e) => {
+
     deleteCookie('jwt');
 });
 
