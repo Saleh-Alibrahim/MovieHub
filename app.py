@@ -23,7 +23,7 @@ app = Flask(__name__, static_url_path='',
 app.register_blueprint(index)
 app.register_blueprint(api)
 app.register_blueprint(db)
-app.secret_key = "super secret key"
+app.secret_key = os.environ.get('SECERT_KEY')
 
 
 # Connect to the database
