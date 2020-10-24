@@ -13,9 +13,8 @@
     <div class="search-wrapper">
         {% with errors = get_flashed_messages(category_filter=["error"]) %}
         {% if errors %}
-        {% for error in errors %}
         <script type="text/javascript">
-            let msg = {{ error | tojson}};
+            let msg = {{ errors[0] | tojson}};
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -24,7 +23,6 @@
                 background: '#0c2738',
             });
         </script>
-        {% endfor %}
         {% endif %}
         {% endwith %}
         <div class="search-title">Looking for something else? Search for any movie</div>
