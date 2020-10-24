@@ -17,17 +17,18 @@ apiKey = os.environ.get('API_KEY')
 def searchMovies():
 
     # Get the movie ID
-    movieName = request.form.get("query").strip()
+    movie_name = request.form.get("query").strip()
 
     # Request the omdbapi api
     data = requests.get(
-        f'http://www.omdbapi.com/?apikey={apiKey}&s={movieName}')
+        f'http://www.omdbapi.com/?apikey={apiKey}&s={movie_name}')
 
     # Convert the result to json
     movies = data.json()
 
     if movies['Response'] == 'False':
-        flash("Movie with this title not found!")
+        flash(movie_name, 'name')
+        flash(f'No results found for {movie_name}', 'error')
         return redirect(request.referrer)
 
     movies = movies['Search']
@@ -59,7 +60,6 @@ def searchOne(movie_id):
     # Convert dist to array of object
     movie = Munch(movie)
     if not movie:
-        flash("Movie with this title not found!")
-        return redirect(request.url_root)
+        abort(400, 'There is not movie with given id')
 
     return render_template('pages/movie.html', movie=movie, buttons=True)

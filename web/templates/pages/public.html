@@ -12,20 +12,31 @@
 
 <div class="section">
     <div class="search-wrapper">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <input autocomplete="off" type="text" value="{{ message }}" class="w-input" name="query" id="flash" disabled>
+        {% with errors = get_flashed_messages(category_filter=["error"]) %}
+        {% if errors %}
+        {% for error in errors %}
+        <script type="text/javascript">
+            let msg = {{ error | tojson}};
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: msg,
+                confirmButtonColor: '#f1b722',
+                background: '#0c2738',
+            });
+        </script>
         {% endfor %}
         {% endif %}
         {% endwith %}
-
         <div class="search-title">Looking for something else? Search for any movie</div>
+        {% with name = get_flashed_messages(category_filter=["name"]) %}
         <form id="search-form" action="/search" method="POST" class="search-form w-clearfix w-form">
             <input autocomplete="off" type="search" class="search-field w-input" maxlength="256" name="query"
-                placeholder="Try The Lord of the Rings" id="search" required="">
-            <input type="submit" value="." class="search-button w-button">
+                placeholder="Try The Lord of the Rings" id="search" required="" value="{{name[0]}}">
+            <input value="." type="submit" class="search-button w-button">
         </form>
+        {% endwith %}
+
 
     </div>
 
