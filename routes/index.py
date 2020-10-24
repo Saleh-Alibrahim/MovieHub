@@ -1,9 +1,6 @@
 from flask import Flask, render_template, request, Response, flash, session, redirect, url_for, jsonify, abort, Blueprint
-import requests
-import os
-from database.models import setup_db, Movies, drop_and_create_all
-from auth.auth import AuthError, requires_auth, get_token_auth_header, verify_decode_jwt
-from dotenv import load_dotenv
+from database.models import Movies
+from auth.auth import requires_auth
 
 index = Blueprint('index', __name__, static_url_path='',
                   static_folder='web/static',
@@ -59,6 +56,7 @@ def privateGuest(userID):
         movies = Movies.query.filter_by(userID=userID).all()
     except:
         abort(500, 'Server error')
+
     if(not movies):
         abort(400, 'There is not hub with given ID')
 

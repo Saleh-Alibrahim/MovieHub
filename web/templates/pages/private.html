@@ -11,6 +11,13 @@
 
 <div class="section">
     <div class="search-wrapper">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <input autocomplete="off" type="text" value="{{ message }}" class="w-input" name="query" id="flash" disabled>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         <div class="search-title">Looking for something else? Search for any movie</div>
         <form id="search-form" action="/search" method="POST" class="search-form w-clearfix w-form">
             <input autocomplete="off" type="search" class="search-field w-input" maxlength="256" name="query"

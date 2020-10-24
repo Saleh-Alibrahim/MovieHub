@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, Response, flash, session, redirect, url_for, jsonify, abort, Blueprint
+# pylint: disable=import-error, method-hidden ,
+# pylint: enable=too-many-lines
+from flask import render_template, request,  jsonify, abort, Blueprint
 import requests
 import os
-from database.models import setup_db, Movies, drop_and_create_all
-from auth.auth import AuthError, requires_auth, get_token_auth_header, verify_decode_jwt
-from dotenv import load_dotenv
+from database.models import Movies
+from auth.auth import requires_auth
+
 
 db = Blueprint('db', __name__, static_url_path='',
                static_folder='web/static',

@@ -1,5 +1,5 @@
 import json
-from flask import request, _request_ctx_stack, abort
+from flask import request, abort
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
@@ -23,6 +23,7 @@ class AuthError(Exception):
 
 
 # Auth Header
+
 
 # soruce : https://github.com/udacity/FSND/blob/master/BasicFlaskAuth/app.py
 def get_token_auth_header():

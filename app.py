@@ -1,11 +1,9 @@
+# pylint: disable=import-error, method-hidden
+# pylint: enable=too-many-lines
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 import os
-import sys
-import requests
-from flask import Flask, render_template, request, Response, flash, session, redirect, url_for, jsonify, abort
-from database.models import setup_db, Movies, drop_and_create_all
-from auth.auth import AuthError, requires_auth, get_token_auth_header, verify_decode_jwt
+from flask import Flask, render_template, request,  redirect
+from database.models import setup_db
 from dotenv import load_dotenv
 from routes.index import index
 from routes.api import api
@@ -25,6 +23,7 @@ app = Flask(__name__, static_url_path='',
 app.register_blueprint(index)
 app.register_blueprint(api)
 app.register_blueprint(db)
+app.secret_key = "super secret key"
 
 
 # Connect to the database
