@@ -12,7 +12,7 @@ cffi==1.14.0
 chardet==3.0.4
 click==7.1.1
 colorama==0.4.3
-cryptography==2.9.2
+cryptography==3.2
 docutils==0.15.2
 doqu==0.28.2
 ecdsa==0.15
